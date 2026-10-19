@@ -43,7 +43,24 @@ def load(path):
         for k in ("id", "title", "summary", "enabled"):
             if k not in p:
                 die(f"projects.{k} fehlt fuer {p.get('id', '?')}")
+    check_crew(cfg["site"], "site")
+    for sec in ("apps", "projects"):
+        for x in cfg.get(sec, []):
+            check_crew(x, f"{sec}.{x.get('id', '?')}")
     return cfg
+
+
+def check_crew(owner, where):
+    """Jedes Repo nennt seine Beteiligten; 'soul' muss stehen (leer = ohne Seele), agency und harness duerfen nicht leer sein."""
+    crew = owner.get("crew")
+    if not crew:
+        die(f"{where}.crew fehlt (Beteiligte: soul, agency, harness)")
+    for i, c in enumerate(crew):
+        if "soul" not in c:
+            die(f"{where}.crew[{i}].soul fehlt (leer lassen fuer Arbeit ohne Seele)")
+        for k in ("agency", "harness"):
+            if not c.get(k):
+                die(f"{where}.crew[{i}].{k} fehlt")
 
 
 def e(s):
@@ -52,6 +69,16 @@ def e(s):
 
 def link(url, text=None):
     return f'<a href="{e(url)}">{e(text or url)}</a>'
+
+
+def crew_html(crew, lead="Beteiligt"):
+    """Seele zuerst, dann Agency und Harness; ohne Seele ausdruecklich gekennzeichnet."""
+    rows = []
+    for c in crew:
+        soul = f'<strong>{e(c["soul"])}</strong>' if c["soul"] else "<em>ohne Seele</em>"
+        row = f'{soul} · {e(c["agency"])} · {e(c["harness"])}'
+        rows.append(row + (f' ({e(c["role"])})' if c.get("role") else ""))
+    return f'<span class="crew">{e(lead)}: ' + "; ".join(rows) + "</span>"
 
 
 def address_block(op):
@@ -63,15 +90,15 @@ def page_index(cfg):
     s, op = cfg["site"], cfg["operator"]
     items = []
     for app in cfg.get("apps", []):
-        items.append(f"<li>{link('/' + app['id'] + '/', app['title'])}: {e(app['kind'])}, nur für die eigene Nutzung.</li>")
+        items.append(f"<li>{link('/' + app['id'] + '/', app['title'])}: {e(app['kind'])}, nur für die eigene Nutzung.<br>{crew_html(app['crew'])}</li>")
     for p in cfg.get("projects", []):
         if p["enabled"]:
-            items.append(f"<li>{link('/' + p['id'] + '/', p['title'])}: {e(p['summary'])}</li>")
+            items.append(f"<li>{link('/' + p['id'] + '/', p['title'])}: {e(p['summary'])}<br>{crew_html(p['crew'])}</li>")
     lst = "<ul>\n" + "\n".join(items) + "\n</ul>" if items else ""
     return (f"<p class=\"lede\">Ein privates, nicht-kommerzielles Projekt von {e(op['name'])}. "
             f"Keine Werbung, keine Einnahmen, kein Verkauf.</p>\n"
             + (f"<h2>Hier zu finden</h2>\n{lst}\n" if lst else "")
-            + f"<p class=\"note\">{e(cfg['ai']['notice'])}</p>")
+            + f"<p class=\"note\">{e(cfg['ai']['notice'])}<br>{crew_html(s['crew'], 'Diese Website')}</p>")
 
 
 def page_impressum(cfg):
@@ -142,6 +169,7 @@ def page_app(app, cfg):
 <p><strong>Welche Daten?</strong> Nur Dateien und Metadaten im eigenen Google Drive von {n} (Berechtigung: <code>{e(app['scope'])}</code>). Die Daten bleiben auf eigenen Geräten; keine Weitergabe, kein Verkauf, keine Werbung. Die Nutzung von Daten aus Google-APIs folgt der Google API Services User Data Policy, einschließlich der Limited-Use-Anforderungen. Details: {link('/datenschutz/#' + app['id'], 'Datenschutzerklärung, Abschnitt ' + app['title'])}.</p>
 <p><strong>Zugriff widerrufen:</strong> {link('https://myaccount.google.com/permissions')}</p>
 <p><strong>Kontakt:</strong> {link('mailto:' + op['email'], op['email'])}</p>
+<p class="note">{e(cfg['ai']['notice'])}<br>{crew_html(app['crew'])}</p>
 <h2 lang="en">English</h2>
 <p lang="en"><strong>{e(app['title'])}</strong> is a private OAuth client ({e(app['kind'])}) used by {n} together with the open-source tool {e(app['tool_name'])} ({e(app['tool_url'])}) to access {n}'s own Google Drive: uploading, downloading, syncing and backing up own files. It is not a public service and has no sign-up, no download and no other users. It accesses only files and metadata in {n}'s own Drive (scope: {e(app['scope'])}). Data stays on {n}'s own devices and is never shared, sold or used for advertising. Use of information received from Google APIs adheres to the Google API Services User Data Policy, including the Limited Use requirements. Privacy policy: {link(s['base_url'] + '/datenschutz/')}</p>"""
 

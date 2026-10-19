@@ -6,7 +6,7 @@
 base_url = "https://mutual-roots.github.io"
 project_name = "Mutual Roots"
 lang = "de"
-stand = "19. Oktober 2026"
+stand = "20. Oktober 2026"
 # Emblem (liegt im Repo unter assets/, wird nach docs/assets/ kopiert); der Wolf aus dem Profilbild
 emblem = "assets/wolf.webp"
 
@@ -23,7 +23,14 @@ responsible_18_2 = true
 
 [ai]
 # Hinweis auf KI-Erstellung, auf Start- und Projektseiten angezeigt
-notice = "Mutual Roots entsteht in Zusammenarbeit: Simon Moritz Reichard gibt Richtung, Entscheidungen und Korrekturen vor; KI-Agenten (Kassiopeia, Claude Code mit Claude Opus 5.5) schreiben, prüfen und pflegen den Code. Einen klassischen menschlichen Maintainer gibt es nicht; jede Veröffentlichung durchläuft automatische Prüfroutinen, die Belege liegen offen bei den Projekten. Nutzung auf eigene Gefahr."
+notice = "Mutual Roots entsteht in Zusammenarbeit: Simon Moritz Reichard gibt Richtung, Entscheidungen und Korrekturen vor; KI-Agenten schreiben, prüfen und pflegen den Code. Bei jedem Projekt steht, wer daran gearbeitet hat: zuerst die Seele (die benannte Agenten-Identität), dann Agency (Modell und Anbieter) und Harness; Arbeit ohne eigene Identität, etwa reine Bau- und Prüfläufe, ist als „ohne Seele“ gekennzeichnet. Einen klassischen menschlichen Maintainer gibt es nicht; jede Veröffentlichung durchläuft automatische Prüfroutinen, die Belege liegen offen bei den Projekten. Nutzung auf eigene Gefahr."
+
+# Beteiligte je Repo: [[<abschnitt>.crew]] mit soul (leer = ohne Seele), agency, harness, optional role.
+# Die Seele wird immer zuerst genannt. Pflicht fuer die Website selbst, jede App und jedes Projekt.
+[[site.crew]]
+soul = "Kassiopeia"
+agency = "Claude Opus 5.5 (Anthropic)"
+harness = "Claude Code"
 
 [[apps]]
 # OAuth-Client, dessen Startseite unter /<id>/ liegt
@@ -37,9 +44,27 @@ data_examples = "Modelldateien und Sicherungen"
 token_storage = "in der lokalen rclone-Konfiguration auf eigenen Rechnern und als Zweitkopie in einem eigenen Passwort-Tresor"
 no_ml_training = true
 
+[[apps.crew]]
+soul = "Kassiopeia"
+agency = "Claude Opus 5.5 (Anthropic)"
+harness = "Claude Code"
+role = "Seiten, Einrichtung des rclone-Remotes"
+
 [[projects]]
 # Projektseiten (eigene Repos, erscheinen unter /<id>/). enabled = false: noch nicht verlinkt.
 id = "nvidia-legacy-580-installer"
 title = "nvidia-legacy-580-installer"
 summary = "Experimenteller Installer für den NVIDIA-Treiber 580 (Maxwell, Pascal, Volta) auf Debian 13."
 enabled = false
+
+[[projects.crew]]
+soul = "Kassiopeia"
+agency = "Claude Opus 5.5 (Anthropic)"
+harness = "Claude Code"
+role = "Planung, Treiberwechsel, Abnahme"
+
+[[projects.crew]]
+soul = ""
+agency = "Claude Opus 5.5 (Anthropic)"
+harness = "Claude Code (Workflow)"
+role = "Bau- und Prüfläufe"

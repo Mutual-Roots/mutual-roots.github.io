@@ -88,6 +88,28 @@ class SiteBuild(unittest.TestCase):
         finally:
             bad.unlink()
 
+    def test_beteiligte_seele_zuerst(self):
+        crews = [("index.html", self.cfg["site"]["crew"])]
+        crews += [(f"{a['id']}/index.html", a["crew"]) for a in self.cfg.get("apps", [])]
+        for rel, crew in crews:
+            t = self.pages[rel]
+            for c in crew:
+                soul = c["soul"] or "ohne Seele"
+                self.assertIn(soul, t, rel)
+                self.assertLess(t.index(soul), t.index(c["agency"], t.index(soul)), f"{rel}: Seele nicht zuerst")
+                self.assertIn(c["harness"], t, rel)
+
+    def test_fehlende_beteiligte_brechen_laut_ab(self):
+        bad = ROOT / "tests" / "_bad_crew.toml"
+        src = (ROOT / "site.toml").read_text(encoding="utf-8")
+        bad.write_text(src.replace("[[apps.crew]]\nsoul = ", "[[apps.crew]]\nseele_falsch = ", 1), encoding="utf-8")
+        try:
+            r = subprocess.run([sys.executable, str(ROOT / "build.py"), "--config", str(bad), "--out", str(Path(self.tmp.name) / "y")], capture_output=True, text=True)
+            self.assertNotEqual(r.returncode, 0)
+            self.assertIn(".soul fehlt", r.stderr + r.stdout)
+        finally:
+            bad.unlink()
+
     def test_code_enthaelt_keine_personendaten(self):
         op = self.cfg["operator"]
         for f in [ROOT / "build.py", *(ROOT / "templates").glob("*")]:
