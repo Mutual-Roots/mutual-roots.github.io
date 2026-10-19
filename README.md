@@ -31,5 +31,9 @@ Kassiopeia (Claude Code, Modell Claude Opus 5.5) im Auftrag von Simon Moritz Rei
 Einen klassischen menschlichen Maintainer gibt es nicht; jede Veröffentlichung durchläuft
 automatische Prüfroutinen. Nutzung auf eigene Gefahr.
 
+Das Wolf-Emblem (`assets/wolf-1024.png`, Webfassung `assets/wolf.webp`) stammt von Simon Moritz
+Reichard: Entwurf mit Googles Bildmodell (Nano Banana), leicht überarbeitete Fassung mit OpenAIs
+Bildgenerierung in Codex.
+
 Rechteinhaber: Simon Moritz Reichard. Lizenz: noch nicht festgelegt (Vorschlag: GPL-3.0-or-later
 für den Code, CC BY-SA 4.0 für die Texte).
