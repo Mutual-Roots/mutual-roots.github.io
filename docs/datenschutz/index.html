@@ -3,24 +3,65 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark light">
 <title>Datenschutzerklärung – Mutual Roots</title>
 <style>
-  :root { --bg: #ffffff; --fg: #1d1f21; --muted: #5c6066; --line: #d9dce0; --link: #1a5fb4; }
-  @media (prefers-color-scheme: dark) { :root { --bg: #16181b; --fg: #e6e8eb; --muted: #9aa0a6; --line: #2e3237; --link: #8ab4f8; } }
-  html { background: var(--bg); color: var(--fg); }
-  body { margin: 0 auto; max-width: 46rem; padding: 2rem 1rem 3rem; font: 16px/1.6 system-ui, -apple-system, "Segoe UI", sans-serif; }
-  a { color: var(--link); }
-  h1 { font-size: 1.6rem; margin: 0 0 1rem; } h2 { font-size: 1.15rem; margin: 2rem 0 .5rem; }
+  /* Dunkel (Standard): Tiefgruen der Mutual-Roots-Linie */
+  :root {
+    --bg: #06110c; --bg-2: #0b1a13; --ink: #eef7f0; --ink-soft: #cfe3d5; --muted: #93ad9c;
+    --line: rgba(157, 205, 176, .20); --accent: #9ce6b6; --root: #d9b98a; --mark-bg: #10241a;
+    --serif: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, "Times New Roman", serif;
+    --sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans", sans-serif;
+  }
+  /* Hell: Anthropic-Elfenbein, Tinte, Ton */
+  @media (prefers-color-scheme: light) {
+    :root { --bg: #faf9f5; --bg-2: #f0eee6; --ink: #141413; --ink-soft: #2b2a27; --muted: #63615a;
+      --line: #e8e6dc; --accent: #35593f; --root: #b9583a; --mark-bg: #efe9dd; }
+  }
+  * { box-sizing: border-box; }
+  html { background: var(--bg); color: var(--ink); -webkit-text-size-adjust: 100%; }
+  body { margin: 0; min-height: 100vh; font: 17px/1.65 var(--sans);
+    background: radial-gradient(120% 60% at 50% -10%, var(--bg-2), var(--bg) 70%); }
+  .wrap { max-width: 44rem; margin: 0 auto; padding: 2.2rem 1.25rem 3rem; }
+  header.site { display: flex; align-items: center; gap: .8rem; padding-bottom: 1.6rem; border-bottom: 1px solid var(--line); }
+  header.site a { display: flex; align-items: center; gap: .75rem; color: var(--ink); text-decoration: none; }
+  .mark { width: 2.6rem; height: 2.6rem; border-radius: 50%; object-fit: cover; flex: none; display: block;
+    box-shadow: 0 0 0 1px var(--line), 0 0 0 3px var(--bg), 0 0 0 4px color-mix(in srgb, var(--accent) 35%, transparent); }
+  .home header.site a { flex-direction: column; align-items: flex-start; }
+  .home .mark { width: 8.5rem; height: 8.5rem; margin-bottom: .4rem;
+    box-shadow: 0 0 0 1px var(--line), 0 0 0 6px var(--bg), 0 0 0 7px color-mix(in srgb, var(--accent) 40%, transparent), 0 18px 50px rgba(0,0,0,.35); }
+  .wordmark { font: 600 1.15rem/1 var(--serif); letter-spacing: .02em; }
+  .wordmark small { display: block; margin-top: .3rem; font: 500 .68rem/1 var(--sans); letter-spacing: .12em; text-transform: uppercase; color: var(--muted); white-space: nowrap; }
+  .home .wordmark { display: none; }
+  .home header.site { border-bottom: 0; padding-bottom: 0; }
+  main { padding-top: 2.2rem; }
+  h1 { font: 600 clamp(1.9rem, 4.5vw, 2.5rem)/1.15 var(--serif); letter-spacing: -.01em; margin: 0 0 1.2rem; hyphens: auto; overflow-wrap: break-word; }
+  h2 { font: 600 .78rem/1.3 var(--sans); letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin: 2.4rem 0 .7rem; }
+  p, ul, address { margin: 0 0 1rem; color: var(--ink-soft); overflow-wrap: break-word; }
+  ul { padding-left: 1.1rem; } li { margin: .35rem 0; } li::marker { color: var(--root); }
+  strong { color: var(--ink); font-weight: 600; }
+  address { font-style: normal; line-height: 1.7; }
+  a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: .18em; }
+  a:hover { text-decoration-thickness: 2px; }
+  code { font: .88em ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: var(--ink); background: var(--mark-bg); padding: .08em .35em; border-radius: 4px; overflow-wrap: anywhere; }
+  .lede { font: 400 1.18rem/1.6 var(--serif); color: var(--ink); }
+  .note { margin-top: 2.6rem; padding-left: 1rem; border-left: 2px solid var(--root); color: var(--muted); font-size: .92rem; }
   .muted { color: var(--muted); font-size: .92rem; }
-  address { font-style: normal; }
-  footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid var(--line); color: var(--muted); font-size: .9rem; }
-  footer a { margin-right: 1rem; }
+  footer.site { margin-top: 3.4rem; padding-top: 1.1rem; border-top: 1px solid var(--line); display: flex; gap: 1.4rem; flex-wrap: wrap; font-size: .9rem; color: var(--muted); }
+  footer.site a { color: var(--muted); }
+  footer.site a:hover { color: var(--ink); }
 </style>
 </head>
-<body>
-<header><p class="muted"><a href="/">Mutual Roots</a></p></header>
+<body class="page">
+<div class="wrap">
+<header class="site">
+  <a href="/" aria-label="Mutual Roots, Startseite">
+    <img class="mark" src="/assets/wolf.webp" alt="" width="229" height="229" decoding="async">
+    <span class="wordmark">Mutual Roots<small>privat · nicht-kommerziell</small></span>
+  </a>
+</header>
 <main>
-<h1>Datenschutzerklärung</h1>
+<h1>Datenschutz&shy;erklärung</h1>
 <p class="muted">Stand: 19. Oktober 2026</p>
 <h2>1. Verantwortlicher</h2>
 <address>Simon Moritz Reichard<br>Gießerstraße 20<br>04229 Leipzig<br>Deutschland</address>
@@ -54,6 +95,7 @@
 <h2>6. Ihre Rechte</h2>
 <p>Sie haben nach der DSGVO das Recht auf Auskunft (Art. 15), Berichtigung (Art. 16), Löschung (Art. 17), Einschränkung der Verarbeitung (Art. 18) und Datenübertragbarkeit (Art. 20). Gegen Verarbeitungen auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO können Sie Widerspruch einlegen (Art. 21). Weil ich selbst keine Besucherdaten speichere, betreffen solche Anliegen praktisch die Protokolle von GitHub; bitte wenden Sie sich dafür auch direkt an GitHub. Sie haben außerdem das Recht, sich bei einer Datenschutz-Aufsichtsbehörde zu beschweren (Art. 77 DSGVO).</p>
 </main>
-<footer><a href="/impressum/">Impressum</a><a href="/datenschutz/">Datenschutz</a></footer>
+<footer class="site"><a href="/impressum/">Impressum</a><a href="/datenschutz/">Datenschutz</a></footer>
+</div>
 </body>
 </html>

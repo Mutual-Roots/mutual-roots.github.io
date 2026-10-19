@@ -15,7 +15,7 @@ from string import Template
 
 HERE = Path(__file__).resolve().parent
 REQUIRED = {
-    "site": ["base_url", "project_name", "lang", "stand"],
+    "site": ["base_url", "project_name", "lang", "stand", "emblem"],
     "operator": ["name", "street", "postal_code", "city", "country", "email", "responsible_18_2"],
     "ai": ["notice"],
 }
@@ -69,9 +69,10 @@ def page_index(cfg):
             items.append(f"<li>{link('/' + p['id'] + '/', p['title'])}: {e(p['summary'])}</li>")
     lst = "<ul>\n" + "\n".join(items) + "\n</ul>" if items else ""
     return (f"<h1>{e(s['project_name'])}</h1>\n"
-            f"<p>{e(s['project_name'])} ist ein privates, nicht-kommerzielles Projekt von {e(op['name'])}. "
-            f"Keine Werbung, keine Einnahmen, kein Verkauf.</p>\n{lst}\n"
-            f"<p class=\"muted\">{e(cfg['ai']['notice'])}</p>")
+            f"<p class=\"lede\">Ein privates, nicht-kommerzielles Projekt von {e(op['name'])}. "
+            f"Keine Werbung, keine Einnahmen, kein Verkauf.</p>\n"
+            + (f"<h2>Hier zu finden</h2>\n{lst}\n" if lst else "")
+            + f"<p class=\"note\">{e(cfg['ai']['notice'])}</p>")
 
 
 def page_impressum(cfg):
@@ -110,7 +111,7 @@ def app_privacy(app, op):
 def page_datenschutz(cfg):
     s, op = cfg["site"], cfg["operator"]
     apps = "\n".join(app_privacy(a, op) for a in cfg.get("apps", []))
-    return f"""<h1>Datenschutzerklärung</h1>
+    return f"""<h1>Datenschutz&shy;erklärung</h1>
 <p class="muted">Stand: {e(s['stand'])}</p>
 <h2>1. Verantwortlicher</h2>
 {address_block(op)}
@@ -146,9 +147,10 @@ def page_app(app, cfg):
 <p lang="en"><strong>{e(app['title'])}</strong> is a private OAuth client ({e(app['kind'])}) used by {n} together with the open-source tool {e(app['tool_name'])} ({e(app['tool_url'])}) to access {n}'s own Google Drive: uploading, downloading, syncing and backing up own files. It is not a public service and has no sign-up, no download and no other users. It accesses only files and metadata in {n}'s own Drive (scope: {e(app['scope'])}). Data stays on {n}'s own devices and is never shared, sold or used for advertising. Use of information received from Google APIs adheres to the Google API Services User Data Policy, including the Limited Use requirements. Privacy policy: {link(s['base_url'] + '/datenschutz/')}</p>"""
 
 
-def render(base, cfg, title, body):
+def render(base, cfg, title, body, bodyclass="page"):
     s = cfg["site"]
-    return Template(base).substitute(lang=e(s["lang"]), title=e(title), project_name=e(s["project_name"]), body=body)
+    return Template(base).substitute(lang=e(s["lang"]), title=e(title), project_name=e(s["project_name"]),
+                                     body=body, bodyclass=bodyclass, emblem=e(s["emblem"]))
 
 
 def main():
@@ -169,7 +171,12 @@ def main():
     for rel, (title, body) in pages.items():
         d = out / rel
         d.mkdir(parents=True, exist_ok=True)
-        (d / "index.html").write_text(render(base, cfg, title, body), encoding="utf-8")
+        (d / "index.html").write_text(render(base, cfg, title, body, "home" if rel == "" else "page"), encoding="utf-8")
+    emblem = HERE / cfg["site"]["emblem"]
+    if not emblem.is_file():
+        die(f"Emblem {emblem} fehlt")
+    (out / emblem.parent.name).mkdir(parents=True, exist_ok=True)
+    shutil.copy2(emblem, out / cfg["site"]["emblem"])
     verify = HERE / "verify"
     for f in (sorted(verify.glob("google*.html")) if verify.is_dir() else []):
         shutil.copy2(f, out / f.name)

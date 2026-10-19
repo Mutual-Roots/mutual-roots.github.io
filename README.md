@@ -23,10 +23,13 @@ Vor- und Nachname und ladungsfähige Anschrift), `python3 build.py`, Tests laufe
 fertig. Keine Rechtsberatung: Ob die Angaben für das eigene Angebot reichen, prüft jede
 und jeder selbst.
 
-## Hinweis zur Erstellung
+## Wie es entsteht
 
-Diese Seiten und Werkzeuge werden von KI-Agenten geschrieben und gepflegt, nicht von einem
-menschlichen Maintainer. Jede Veröffentlichung durchläuft automatische Prüfroutinen.
-Nutzung auf eigene Gefahr.
+Mutual Roots entsteht in Zusammenarbeit: Simon Moritz Reichard gibt Richtung, Entscheidungen
+und Korrekturen vor; KI-Agenten schreiben, prüfen und pflegen den Code. Autorin der Umsetzung:
+Kassiopeia (Claude Code, Modell Claude Opus 5.5) im Auftrag von Simon Moritz Reichard.
+Einen klassischen menschlichen Maintainer gibt es nicht; jede Veröffentlichung durchläuft
+automatische Prüfroutinen. Nutzung auf eigene Gefahr.
 
-Lizenz: noch nicht festgelegt (Vorschlag: MIT für den Code, CC BY-SA 4.0 für die Texte).
+Rechteinhaber: Simon Moritz Reichard. Lizenz: noch nicht festgelegt (Vorschlag: GPL-3.0-or-later
+für den Code, CC BY-SA 4.0 für die Texte).

@@ -7,6 +7,8 @@ base_url = "https://mutual-roots.github.io"
 project_name = "Mutual Roots"
 lang = "de"
 stand = "19. Oktober 2026"
+# Emblem (liegt im Repo unter assets/, wird nach docs/assets/ kopiert); der Wolf aus dem Profilbild
+emblem = "assets/wolf.webp"
 
 [operator]
 # Anbieter nach § 18 Abs. 1 MStV (natuerliche Person: Vor- und Nachname, ladungsfaehige Anschrift)
@@ -21,7 +23,7 @@ responsible_18_2 = true
 
 [ai]
 # Hinweis auf KI-Erstellung, auf Start- und Projektseiten angezeigt
-notice = "Die Seiten und Werkzeuge von Mutual Roots werden von KI-Agenten geschrieben und gepflegt, nicht von einem menschlichen Maintainer. Jede Veröffentlichung durchläuft automatische Prüfroutinen; die Belege liegen offen bei den Projekten. Nutzung auf eigene Gefahr."
+notice = "Mutual Roots entsteht in Zusammenarbeit: Simon Moritz Reichard gibt Richtung, Entscheidungen und Korrekturen vor; KI-Agenten (Kassiopeia, Claude Code mit Claude Opus 5.5) schreiben, prüfen und pflegen den Code. Einen klassischen menschlichen Maintainer gibt es nicht; jede Veröffentlichung durchläuft automatische Prüfroutinen, die Belege liegen offen bei den Projekten. Nutzung auf eigene Gefahr."
 
 [[apps]]
 # OAuth-Client, dessen Startseite unter /<id>/ liegt

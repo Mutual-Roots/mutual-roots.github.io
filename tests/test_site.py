@@ -38,7 +38,10 @@ class SiteBuild(unittest.TestCase):
     def test_keine_externen_ressourcen_keine_skripte(self):
         for rel, t in self.pages.items():
             self.assertNotRegex(t, r'(?i)<script', rel)
-            self.assertNotRegex(t, r'(?i)<(img|iframe|video|audio|source)\b', rel)
+            self.assertNotRegex(t, r'(?i)<(iframe|video|audio|source|object|embed)\b', rel)
+            for src in re.findall(r'(?i)<img[^>]+src="([^"]+)"', t):
+                self.assertTrue(src.startswith("/"), f"{rel}: Bild nicht vom eigenen Server: {src}")
+                self.assertTrue((self.out / src.lstrip("/")).is_file(), f"{rel}: Bild fehlt im Build: {src}")
             self.assertNotRegex(t, r'(?i)<link[^>]+href="https?:', rel)
             self.assertNotRegex(t, r'(?i)src="https?:', rel)
             self.assertNotRegex(t, r'(?i)@import|url\(\s*["\']?https?:', rel)
