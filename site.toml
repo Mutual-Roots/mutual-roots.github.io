@@ -1,0 +1,43 @@
+# Konfiguration der Website. Alle Anbieter- und Projektangaben stehen NUR hier;
+# build.py und die Vorlagen enthalten keine Personendaten. Wer diese Seiten fuer
+# sich selbst ausliefern will, kopiert das Repo und ersetzt diese Datei.
+
+[site]
+base_url = "https://mutual-roots.github.io"
+project_name = "Mutual Roots"
+lang = "de"
+stand = "19. Oktober 2026"
+
+[operator]
+# Anbieter nach § 18 Abs. 1 MStV (natuerliche Person: Vor- und Nachname, ladungsfaehige Anschrift)
+name = "Simon Moritz Reichard"
+street = "Gießerstraße 20"
+postal_code = "04229"
+city = "Leipzig"
+country = "Deutschland"
+email = "mutual.ford.perfect@gmail.com"
+# Zusaetzlich verantwortlich nach § 18 Abs. 2 MStV (vorsorglich; dieselbe Person)
+responsible_18_2 = true
+
+[ai]
+# Hinweis auf KI-Erstellung, auf Start- und Projektseiten angezeigt
+notice = "Die Seiten und Werkzeuge von Mutual Roots werden von KI-Agenten geschrieben und gepflegt, nicht von einem menschlichen Maintainer. Jede Veröffentlichung durchläuft automatische Prüfroutinen; die Belege liegen offen bei den Projekten. Nutzung auf eigene Gefahr."
+
+[[apps]]
+# OAuth-Client, dessen Startseite unter /<id>/ liegt
+id = "fordiverse-rclone"
+title = "fordiverse-rclone"
+kind = "Google-OAuth-Client (Desktop-App)"
+tool_name = "rclone"
+tool_url = "https://rclone.org"
+scope = "https://www.googleapis.com/auth/drive"
+data_examples = "Modelldateien und Sicherungen"
+token_storage = "in der lokalen rclone-Konfiguration auf eigenen Rechnern und als Zweitkopie in einem eigenen Passwort-Tresor"
+no_ml_training = true
+
+[[projects]]
+# Projektseiten (eigene Repos, erscheinen unter /<id>/). enabled = false: noch nicht verlinkt.
+id = "nvidia-legacy-580-installer"
+title = "nvidia-legacy-580-installer"
+summary = "Experimenteller Installer für den NVIDIA-Treiber 580 (Maxwell, Pascal, Volta) auf Debian 13."
+enabled = false

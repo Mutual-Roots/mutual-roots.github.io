@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="$lang">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>$title</title>
+<style>
+  :root { --bg: #ffffff; --fg: #1d1f21; --muted: #5c6066; --line: #d9dce0; --link: #1a5fb4; }
+  @media (prefers-color-scheme: dark) { :root { --bg: #16181b; --fg: #e6e8eb; --muted: #9aa0a6; --line: #2e3237; --link: #8ab4f8; } }
+  html { background: var(--bg); color: var(--fg); }
+  body { margin: 0 auto; max-width: 46rem; padding: 2rem 1rem 3rem; font: 16px/1.6 system-ui, -apple-system, "Segoe UI", sans-serif; }
+  a { color: var(--link); }
+  h1 { font-size: 1.6rem; margin: 0 0 1rem; } h2 { font-size: 1.15rem; margin: 2rem 0 .5rem; }
+  .muted { color: var(--muted); font-size: .92rem; }
+  address { font-style: normal; }
+  footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid var(--line); color: var(--muted); font-size: .9rem; }
+  footer a { margin-right: 1rem; }
+</style>
+</head>
+<body>
+<header><p class="muted"><a href="/">$project_name</a></p></header>
+<main>
+$body
+</main>
+<footer><a href="/impressum/">Impressum</a><a href="/datenschutz/">Datenschutz</a></footer>
+</body>
+</html>

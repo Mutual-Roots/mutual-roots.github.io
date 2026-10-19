@@ -1,0 +1,81 @@
+"""Pruefungen fuer den Website-Build: python3 -m unittest discover -s tests"""
+import re
+import subprocess
+import sys
+import tempfile
+import tomllib
+import unittest
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parent.parent
+
+
+class SiteBuild(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        cls.tmp = tempfile.TemporaryDirectory()
+        cls.out = Path(cls.tmp.name) / "docs"
+        subprocess.run([sys.executable, str(ROOT / "build.py"), "--out", str(cls.out)], check=True, capture_output=True)
+        cls.pages = {p.relative_to(cls.out).as_posix(): p.read_text(encoding="utf-8") for p in cls.out.rglob("index.html")}
+        with open(ROOT / "site.toml", "rb") as f:
+            cls.cfg = tomllib.load(f)
+
+    @classmethod
+    def tearDownClass(cls):
+        cls.tmp.cleanup()
+
+    def test_pflichtseiten_vorhanden(self):
+        for rel in ("index.html", "impressum/index.html", "datenschutz/index.html"):
+            self.assertIn(rel, self.pages)
+        for app in self.cfg.get("apps", []):
+            self.assertIn(f"{app['id']}/index.html", self.pages)
+
+    def test_jede_seite_verlinkt_impressum_und_datenschutz(self):
+        for rel, t in self.pages.items():
+            self.assertIn('href="/impressum/">Impressum<', t, rel)
+            self.assertIn('href="/datenschutz/">Datenschutz<', t, rel)
+
+    def test_keine_externen_ressourcen_keine_skripte(self):
+        for rel, t in self.pages.items():
+            self.assertNotRegex(t, r'(?i)<script', rel)
+            self.assertNotRegex(t, r'(?i)<(img|iframe|video|audio|source)\b', rel)
+            self.assertNotRegex(t, r'(?i)<link[^>]+href="https?:', rel)
+            self.assertNotRegex(t, r'(?i)src="https?:', rel)
+            self.assertNotRegex(t, r'(?i)@import|url\(\s*["\']?https?:', rel)
+
+    def test_keine_platzhalter_uebrig(self):
+        for rel, t in self.pages.items():
+            self.assertNotRegex(t, r'\$[a-z_]+|\[(NAME|ANSCHRIFT|EMAIL|SCOPE|DATUM)\]', rel)
+
+    def test_impressum_traegt_anbieter_aus_config(self):
+        op = self.cfg["operator"]
+        t = self.pages["impressum/index.html"]
+        for k in ("name", "street", "postal_code", "city", "email"):
+            self.assertIn(op[k], t, k)
+
+    def test_datenschutz_anker_je_app(self):
+        t = self.pages["datenschutz/index.html"]
+        for app in self.cfg.get("apps", []):
+            self.assertIn(f'id="{app["id"]}"', t)
+            self.assertIn("Limited Use", t)
+
+    def test_fehlender_pflichtwert_bricht_laut_ab(self):
+        bad = ROOT / "tests" / "_bad.toml"
+        bad.write_text((ROOT / "site.toml").read_text(encoding="utf-8").replace('street = ', 'strasse_falsch = '), encoding="utf-8")
+        try:
+            r = subprocess.run([sys.executable, str(ROOT / "build.py"), "--config", str(bad), "--out", str(Path(self.tmp.name) / "x")], capture_output=True, text=True)
+            self.assertNotEqual(r.returncode, 0)
+            self.assertIn("operator.street fehlt", r.stderr + r.stdout)
+        finally:
+            bad.unlink()
+
+    def test_code_enthaelt_keine_personendaten(self):
+        op = self.cfg["operator"]
+        for f in [ROOT / "build.py", *(ROOT / "templates").glob("*")]:
+            t = f.read_text(encoding="utf-8")
+            for k in ("name", "street", "email"):
+                self.assertNotIn(op[k], t, f"{f.name} enthaelt {k}")
+
+
+if __name__ == "__main__":
+    unittest.main()
