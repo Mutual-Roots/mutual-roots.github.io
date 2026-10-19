@@ -177,6 +177,10 @@ def main():
         die(f"Emblem {emblem} fehlt")
     (out / emblem.parent.name).mkdir(parents=True, exist_ok=True)
     shutil.copy2(emblem, out / cfg["site"]["emblem"])
+    fonts = HERE / "assets" / "fonts"
+    if fonts.is_dir():
+        # Schriften samt OFL-Lizenztext und Herkunftsnachweis mitliefern (Pflicht der OFL)
+        shutil.copytree(fonts, out / "assets" / "fonts", ignore=shutil.ignore_patterns("*.tmp"))
     verify = HERE / "verify"
     for f in (sorted(verify.glob("google*.html")) if verify.is_dir() else []):
         shutil.copy2(f, out / f.name)

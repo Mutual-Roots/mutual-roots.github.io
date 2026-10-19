@@ -5,13 +5,20 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="dark light">
 <title>Mutual Roots</title>
+<link rel="preload" href="/assets/fonts/fraunces/fraunces-latin-standard-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/atkinson-hyperlegible-next/atkinson-hyperlegible-next-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
 <style>
+  /* Schriften: OFL 1.1, selbst ausgeliefert (assets/fonts/HERKUNFT.md) */
+  @font-face { font-family: "Fraunces"; font-style: normal; font-weight: 100 900; font-display: swap;
+    src: url("/assets/fonts/fraunces/fraunces-latin-standard-normal.woff2") format("woff2"); }
+  @font-face { font-family: "Atkinson Hyperlegible Next"; font-style: normal; font-weight: 200 800; font-display: swap;
+    src: url("/assets/fonts/atkinson-hyperlegible-next/atkinson-hyperlegible-next-latin-wght-normal.woff2") format("woff2"); }
   /* Dunkel (Standard): Tiefgruen der Mutual-Roots-Linie */
   :root {
     --bg: #06110c; --bg-2: #0b1a13; --ink: #eef7f0; --ink-soft: #cfe3d5; --muted: #93ad9c;
     --line: rgba(157, 205, 176, .20); --accent: #9ce6b6; --root: #d9b98a; --mark-bg: #10241a;
-    --serif: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, "Times New Roman", serif;
-    --sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans", sans-serif;
+    --serif: "Fraunces", "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+    --sans: "Atkinson Hyperlegible Next", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   }
   /* Hell: Anthropic-Elfenbein, Tinte, Ton */
   @media (prefers-color-scheme: light) {

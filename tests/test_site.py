@@ -46,6 +46,15 @@ class SiteBuild(unittest.TestCase):
             self.assertNotRegex(t, r'(?i)src="https?:', rel)
             self.assertNotRegex(t, r'(?i)@import|url\(\s*["\']?https?:', rel)
 
+    def test_schriften_lokal_mit_lizenz(self):
+        for rel, t in self.pages.items():
+            for url in re.findall(r'url\("([^"]+)"\)', t):
+                self.assertTrue(url.startswith("/"), f"{rel}: Schrift nicht vom eigenen Server: {url}")
+                f = self.out / url.lstrip("/")
+                self.assertTrue(f.is_file(), f"{rel}: Schrift fehlt: {url}")
+                self.assertTrue((f.parent / "OFL.txt").is_file(), f"{rel}: OFL.txt fehlt neben {url}")
+                self.assertEqual(f.read_bytes()[:4], b"wOF2", url)
+
     def test_keine_platzhalter_uebrig(self):
         for rel, t in self.pages.items():
             self.assertNotRegex(t, r'\$[a-z_]+|\[(NAME|ANSCHRIFT|EMAIL|SCOPE|DATUM)\]', rel)
