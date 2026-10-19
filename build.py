@@ -68,8 +68,7 @@ def page_index(cfg):
         if p["enabled"]:
             items.append(f"<li>{link('/' + p['id'] + '/', p['title'])}: {e(p['summary'])}</li>")
     lst = "<ul>\n" + "\n".join(items) + "\n</ul>" if items else ""
-    return (f"<h1>{e(s['project_name'])}</h1>\n"
-            f"<p class=\"lede\">Ein privates, nicht-kommerzielles Projekt von {e(op['name'])}. "
+    return (f"<p class=\"lede\">Ein privates, nicht-kommerzielles Projekt von {e(op['name'])}. "
             f"Keine Werbung, keine Einnahmen, kein Verkauf.</p>\n"
             + (f"<h2>Hier zu finden</h2>\n{lst}\n" if lst else "")
             + f"<p class=\"note\">{e(cfg['ai']['notice'])}</p>")
@@ -147,10 +146,18 @@ def page_app(app, cfg):
 <p lang="en"><strong>{e(app['title'])}</strong> is a private OAuth client ({e(app['kind'])}) used by {n} together with the open-source tool {e(app['tool_name'])} ({e(app['tool_url'])}) to access {n}'s own Google Drive: uploading, downloading, syncing and backing up own files. It is not a public service and has no sign-up, no download and no other users. It accesses only files and metadata in {n}'s own Drive (scope: {e(app['scope'])}). Data stays on {n}'s own devices and is never shared, sold or used for advertising. Use of information received from Google APIs adheres to the Google API Services User Data Policy, including the Limited Use requirements. Privacy policy: {link(s['base_url'] + '/datenschutz/')}</p>"""
 
 
+def brand_html(name):
+    """Wortmarke: erstes Wort leicht, Rest kraeftig (z. B. 'Mutual' / 'Roots')."""
+    first, _, rest = name.partition(" ")
+    return f'<span class="w1">{e(first)}</span> <span class="w2">{e(rest)}</span>' if rest else f'<span class="w2">{e(first)}</span>'
+
+
 def render(base, cfg, title, body, bodyclass="page"):
     s = cfg["site"]
     return Template(base).substitute(lang=e(s["lang"]), title=e(title), project_name=e(s["project_name"]),
-                                     body=body, bodyclass=bodyclass, emblem=e(s["emblem"]))
+                                     body=body, bodyclass=bodyclass, emblem=e(s["emblem"]),
+                                     brand=brand_html(s["project_name"]),
+                                     brandtag="h1" if bodyclass == "home" else "span")
 
 
 def main():
