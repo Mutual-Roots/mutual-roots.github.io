@@ -35,5 +35,14 @@ Das Wolf-Emblem (`assets/wolf-1024.png`, Webfassung `assets/wolf.webp`) stammt v
 Reichard: Entwurf mit Googles Bildmodell (Nano Banana), leicht überarbeitete Fassung mit OpenAIs
 Bildgenerierung in Codex.
 
-Rechteinhaber: Simon Moritz Reichard. Lizenz: noch nicht festgelegt (Vorschlag: GPL-3.0-or-later
-für den Code, CC BY-SA 4.0 für die Texte).
+## Lizenzen
+
+Rechteinhaber: Simon Moritz Reichard.
+
+| Teil | Lizenz |
+|---|---|
+| Code (`build.py`, `templates/`, `tests/`) | MIT, siehe `LICENSE` |
+| Texte der Seiten und dieses README | [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/deed.de) |
+| Schriften (`assets/fonts/`) | SIL Open Font License 1.1, je `OFL.txt` daneben, Herkunft in `assets/fonts/HERKUNFT.md` |
+| Wolf-Emblem (`assets/wolf*`) | alle Rechte vorbehalten, nicht von den obigen Lizenzen erfasst |
+| Angaben in `site.toml` (Name, Anschrift, E-Mail) | Personendaten, nicht zur Weiterverwendung lizenziert; eigene Angaben einsetzen |
