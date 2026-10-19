@@ -55,6 +55,13 @@ class SiteBuild(unittest.TestCase):
                 self.assertTrue((f.parent / "OFL.txt").is_file(), f"{rel}: OFL.txt fehlt neben {url}")
                 self.assertEqual(f.read_bytes()[:4], b"wOF2", url)
 
+    def test_tab_symbole(self):
+        self.assertTrue((self.out / "favicon.ico").is_file())
+        for rel, t in self.pages.items():
+            for href in re.findall(r'<link rel="(?:icon|apple-touch-icon)"[^>]*href="([^"]+)"', t):
+                self.assertTrue(href.startswith("/"), f"{rel}: {href}")
+                self.assertTrue((self.out / href.lstrip("/")).is_file(), f"{rel}: Symbol fehlt: {href}")
+
     def test_keine_platzhalter_uebrig(self):
         for rel, t in self.pages.items():
             self.assertNotRegex(t, r'\$[a-z_]+|\[(NAME|ANSCHRIFT|EMAIL|SCOPE|DATUM)\]', rel)

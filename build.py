@@ -177,6 +177,12 @@ def main():
         die(f"Emblem {emblem} fehlt")
     (out / emblem.parent.name).mkdir(parents=True, exist_ok=True)
     shutil.copy2(emblem, out / cfg["site"]["emblem"])
+    icons = HERE / "assets" / "icons"
+    for name in ("favicon.ico", "favicon-32.png", "apple-touch-icon.png"):
+        if not (icons / name).is_file():
+            die(f"Tab-Symbol {icons / name} fehlt")
+    shutil.copytree(icons, out / "assets" / "icons")
+    shutil.copy2(icons / "favicon.ico", out / "favicon.ico")
     fonts = HERE / "assets" / "fonts"
     if fonts.is_dir():
         # Schriften samt OFL-Lizenztext und Herkunftsnachweis mitliefern (Pflicht der OFL)
