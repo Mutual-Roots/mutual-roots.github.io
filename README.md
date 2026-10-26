@@ -1,55 +1,61 @@
 # mutual-roots.github.io
 
-Die kleinste mögliche öffentliche Seite von **Mutual Roots**: Startseite, Impressum,
-Datenschutzerklärung und die Appinfos für `fordiverse-rclone` und `Fordiverse Mail`.
-Projektseiten wie `/nvidia-legacy-580-installer/` kommen aus eigenen Repos dazu.
+The small public website for **Mutual Roots**: home, legal notice, privacy policy
+and app information for `fordiverse-rclone` and `Fordiverse Mail`. Project pages such
+as `/nvidia-legacy-580-installer/` can be supplied by their own repositories.
 
-## So funktioniert es
+## How it works
 
-- **Alle Anbieter- und Projektangaben stehen nur in `site.toml`.** `build.py` und
-  `templates/` enthalten keine Personendaten (ein Test prüft das).
-- `python3 build.py` erzeugt die Seiten nach `docs/`; GitHub Pages liefert `docs/` aus.
-- Fehlt in `site.toml` ein Pflichtwert, bricht der Build laut ab, statt eine
-  unvollständige Seite zu erzeugen.
-- Die Seiten haben keine Cookies, kein Tracking, keine Skripte und keine Inhalte von
-  fremden Servern. Tests: `python3 -m unittest discover -s tests`.
-- Die Bestätigungsdatei der Google Search Console (`google….html`) gehört nach `verify/`;
-  der Build kopiert sie an die Wurzel.
+- **All operator and project information lives in `site.toml`.** `build.py` and
+  `templates/` contain no personal details; a test checks this.
+- `python3 build.py` generates `docs/`; GitHub Pages serves that directory.
+- English is the default at the existing URLs. Complete German editions live under
+  `/de/`, with equivalent-page language links and `hreflang` metadata. There is no
+  script or automatic language redirect. The existing `/impressum/`,
+  `/datenschutz/` and `/datenschutz/#fordiverse-mail` URLs remain usable.
+- Configurable English text is held alongside the German text in `[...english]`
+  tables. Both editions share factual identifiers, scopes, contact details and assets.
+- Missing required configuration, including English app text, fails the build rather
+  than generating an incomplete page.
+- No cookies, tracking, scripts or resources from other servers. Fonts and their
+  licences are included locally. Checks: `python3 -m unittest discover -s tests`.
+- A Google Search Console verification file (`google….html`) goes in `verify/`;
+  the builder copies it to the site root.
 
-Die Mail-Appinfo unter `/fordiverse-mail/` beschreibt den bestehenden Google-Zugang
-„Google MI Auth Gate“ mit Gmail, Pimalaya und lokalen Mox/Cypht-Spiegeln. Die Drive-
-und Mailtexte sind getrennt; eine Veröffentlichung dieser Website ändert weder das
-Google-Branding noch dessen Veröffentlichungs- oder Verifizierungsstatus.
+`/fordiverse-mail/` describes the existing “Google MI Auth Gate” Gmail connection,
+Pimalaya and local Mox/Cypht mirrors. Drive and Mail content remain separate.
+Publishing this website does not change Google's branding, publication or
+verification status.
 
-## Für eigene Seiten nutzen
+## Reusing the site
 
-Repo kopieren, `site.toml` mit den eigenen Angaben füllen (Anbieter nach § 18 MStV:
-Vor- und Nachname und ladungsfähige Anschrift), `python3 build.py`, Tests laufen lassen,
-fertig. Keine Rechtsberatung: Ob die Angaben für das eigene Angebot reichen, prüft jede
-und jeder selbst.
+Copy the repository, replace the details in `site.toml` with your own (including the
+operator's full name and service address under § 18 MStV), run `python3 build.py`,
+and run the checks. This is not legal advice; each operator must assess whether the
+information meets their own requirements.
 
-## Wie es entsteht
+## How it is made
 
-Mutual Roots entsteht in Zusammenarbeit: Simon Moritz Reichard gibt Richtung, Entscheidungen
-und Korrekturen vor; KI-Agenten schreiben, prüfen und pflegen den Code. Autorin der Umsetzung:
-Kassiopeia (Claude Code, Modell Claude Opus 5.5) im Auftrag von Simon Moritz Reichard.
-Die Mail-Ergänzung stammt von Kassiopeia (native Codex-Instanz; OpenAI, Harness Codex).
-Die ursprüngliche Claude-Umsetzung und diese Ergänzung bleiben getrennt ausgewiesen.
-Einen klassischen menschlichen Maintainer gibt es nicht; jede Veröffentlichung durchläuft
-automatische Prüfroutinen. Nutzung auf eigene Gefahr.
+Mutual Roots is a collaboration: Simon Moritz Reichard provides direction,
+decisions and corrections; AI agents write, review and maintain the code.
+The original implementation was authored by Kassiopeia (Claude Code, Claude Opus 5.5)
+on behalf of Simon Moritz Reichard. The Mail addition and English/German editions
+are by Kassiopeia (native Codex instance; OpenAI, Codex harness). These origins
+remain separately identified. There is no conventional human maintainer; every
+publication goes through automated checks. Use at your own risk.
 
-Das Wolf-Emblem (`assets/wolf-1024.png`, Webfassung `assets/wolf.webp`) stammt von Simon Moritz
-Reichard: Entwurf mit Googles Bildmodell (Nano Banana), leicht überarbeitete Fassung mit OpenAIs
-Bildgenerierung in Codex.
+The wolf emblem (`assets/wolf-1024.png`, web edition `assets/wolf.webp`) comes from
+Simon Moritz Reichard: created with Google's image model (Nano Banana), with a
+lightly revised version made using OpenAI image generation in Codex.
 
-## Lizenzen
+## Licences
 
-Rechteinhaber: Simon Moritz Reichard.
+Rights holder: Simon Moritz Reichard.
 
-| Teil | Lizenz |
+| Part | Licence |
 |---|---|
-| Code (`build.py`, `templates/`, `tests/`) | MIT, siehe `LICENSE` |
-| Texte der Seiten und dieses README | [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/deed.de) |
-| Schriften (`assets/fonts/`) | SIL Open Font License 1.1, je `OFL.txt` daneben, Herkunft in `assets/fonts/HERKUNFT.md` |
-| Wolf-Emblem (`assets/wolf*`) | alle Rechte vorbehalten, nicht von den obigen Lizenzen erfasst |
-| Angaben in `site.toml` (Name, Anschrift, E-Mail) | Personendaten, nicht zur Weiterverwendung lizenziert; eigene Angaben einsetzen |
+| Code (`build.py`, `templates/`, `tests/`) | MIT; see `LICENSE` |
+| Page text and this README | [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) |
+| Fonts (`assets/fonts/`) | SIL Open Font License 1.1; each includes `OFL.txt`, with sources in `assets/fonts/HERKUNFT.md` |
+| Wolf emblem (`assets/wolf*`) | All rights reserved; excluded from the licences above |
+| Details in `site.toml` (name, address, email) | Personal data, not licensed for reuse; replace with your own details |

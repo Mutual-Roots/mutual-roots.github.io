@@ -10,6 +10,7 @@
 <link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png">
 <link rel="preload" href="/assets/fonts/fraunces/fraunces-latin-full-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/atkinson-hyperlegible-next/atkinson-hyperlegible-next-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+$language_alternates
 <style>
   /* Schriften: OFL 1.1, selbst ausgeliefert (assets/fonts/HERKUNFT.md) */
   @font-face { font-family: "Fraunces"; font-style: normal; font-weight: 100 900; font-display: swap;
@@ -90,15 +91,16 @@
 <body class="$bodyclass">
 <div class="wrap">
 <header class="site">
-  <a href="/" aria-label="$project_name, Startseite">
+  <a href="$home_url" aria-label="$project_name, $home_label">
     <img class="mark" src="/$emblem" alt="" width="512" height="512" decoding="async">
-    <$brandtag class="wordmark">$brand<small>privat · nicht-kommerziell</small></$brandtag>
+    <$brandtag class="wordmark">$brand<small>$tagline</small></$brandtag>
   </a>
 </header>
+<nav aria-label="$language_label" class="muted">$language_switch</nav>
 <main>
 $body
 </main>
-<footer class="site"><a href="/impressum/">Impressum</a><a href="/datenschutz/">Datenschutz</a></footer>
+<footer class="site"><a href="$legal_url">$legal_label</a><a href="$privacy_url">$privacy_label</a></footer>
 </div>
 </body>
 </html>

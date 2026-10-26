@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="de">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -10,6 +10,9 @@
 <link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png">
 <link rel="preload" href="/assets/fonts/fraunces/fraunces-latin-full-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/atkinson-hyperlegible-next/atkinson-hyperlegible-next-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="alternate" hreflang="en" href="/fordiverse-rclone/">
+<link rel="alternate" hreflang="de" href="/de/fordiverse-rclone/">
+<link rel="alternate" hreflang="x-default" href="/fordiverse-rclone/">
 <style>
   /* Schriften: OFL 1.1, selbst ausgeliefert (assets/fonts/HERKUNFT.md) */
   @font-face { font-family: "Fraunces"; font-style: normal; font-weight: 100 900; font-display: swap;
@@ -90,23 +93,22 @@
 <body class="page">
 <div class="wrap">
 <header class="site">
-  <a href="/" aria-label="Mutual Roots, Startseite">
+  <a href="/" aria-label="Mutual Roots, Home">
     <img class="mark" src="/assets/wolf.webp" alt="" width="512" height="512" decoding="async">
-    <span class="wordmark"><span class="w1">Mutual</span> <span class="w2">Roots</span><small>privat · nicht-kommerziell</small></span>
+    <span class="wordmark"><span class="w1">Mutual</span> <span class="w2">Roots</span><small>private · non-commercial</small></span>
   </a>
 </header>
+<nav aria-label="Language" class="muted"><span lang="en" aria-current="page">English</span> · <a href="/de/fordiverse-rclone/" lang="de" hreflang="de">Deutsch</a></nav>
 <main>
 <h1>fordiverse-rclone</h1>
-<p><strong>Was ist das?</strong> fordiverse-rclone ist ein privater Google-OAuth-Client (Desktop-App) von Simon Moritz Reichard. Er wird mit dem Open-Source-Programm <a href="https://rclone.org">rclone</a> benutzt, um von eigenen Rechnern auf das eigene Google Drive zuzugreifen: eigene Dateien hochladen, herunterladen, synchronisieren und sichern.</p>
-<p><strong>Für wen?</strong> Nur für Simon Moritz Reichard selbst. Es ist kein öffentlicher Dienst; es gibt keine Anmeldung, keinen Download und keine weiteren Nutzerinnen oder Nutzer.</p>
-<p><strong>Welche Daten?</strong> Nur Dateien und Metadaten im eigenen Google Drive von Simon Moritz Reichard (Berechtigung: <code>https://www.googleapis.com/auth/drive</code>). Die Daten bleiben auf eigenen Geräten; keine Weitergabe, kein Verkauf, keine Werbung. Die Nutzung von Daten aus Google-APIs folgt der Google API Services User Data Policy, einschließlich der Limited-Use-Anforderungen. Details: <a href="/datenschutz/#fordiverse-rclone">Datenschutzerklärung, Abschnitt fordiverse-rclone</a>.</p>
-<p><strong>Zugriff widerrufen:</strong> <a href="https://myaccount.google.com/permissions">https://myaccount.google.com/permissions</a></p>
-<p><strong>Kontakt:</strong> <a href="mailto:mutual.ford.perfect@gmail.com">mutual.ford.perfect@gmail.com</a></p>
-<p class="note">Mutual Roots entsteht in Zusammenarbeit: Simon Moritz Reichard gibt Richtung, Entscheidungen und Korrekturen vor; KI-Agenten schreiben, prüfen und pflegen den Code. Bei jedem Projekt steht, wer daran gearbeitet hat: zuerst die Seele (die benannte Agenten-Identität), dann Agency (Modell und Anbieter) und Harness; Arbeit ohne eigene Identität, etwa reine Bau- und Prüfläufe, ist als „ohne Seele“ gekennzeichnet. Einen klassischen menschlichen Maintainer gibt es nicht; jede Veröffentlichung durchläuft automatische Prüfroutinen, die Belege liegen offen bei den Projekten. Nutzung auf eigene Gefahr.<br><span class="crew">Beteiligt: <strong>Kassiopeia</strong> · Claude Opus 5.5 (Anthropic) · Claude Code (Seiten, Einrichtung des rclone-Remotes)</span></p>
-<h2 lang="en">English</h2>
-<p lang="en"><strong>fordiverse-rclone</strong> is a private OAuth client (Google-OAuth-Client (Desktop-App)) used by Simon Moritz Reichard together with the open-source tool rclone (https://rclone.org) to access Simon Moritz Reichard's own Google Drive: uploading, downloading, syncing and backing up own files. It is not a public service and has no sign-up, no download and no other users. It accesses only files and metadata in Simon Moritz Reichard's own Drive (scope: https://www.googleapis.com/auth/drive). Data stays on Simon Moritz Reichard's own devices and is never shared, sold or used for advertising. Use of information received from Google APIs adheres to the Google API Services User Data Policy, including the Limited Use requirements. Privacy policy: <a href="https://mutual-roots.github.io/datenschutz/">https://mutual-roots.github.io/datenschutz/</a></p>
+<p><strong>What is it?</strong> fordiverse-rclone is a private Google OAuth client (desktop app) owned by Simon Moritz Reichard. It is used with the open-source tool <a href="https://rclone.org">rclone</a> to access the operator's own Google Drive from their own computers: uploading, downloading, synchronizing and backing up their own files.</p>
+<p><strong>Who is it for?</strong> Only Simon Moritz Reichard. It is not a public service: there is no sign-in, download or other users.</p>
+<p><strong>Which data?</strong> Only files and metadata in Simon Moritz Reichard's own Google Drive (permission: <code>https://www.googleapis.com/auth/drive</code>). Data stay on the operator's own devices; no sharing, sale or advertising. Use of Google API data follows the Google API Services User Data Policy, including the Limited Use requirements. Details: <a href="/datenschutz/#fordiverse-rclone">Privacy policy, fordiverse-rclone section</a>.</p>
+<p><strong>Revoke access:</strong> <a href="https://myaccount.google.com/permissions">https://myaccount.google.com/permissions</a></p>
+<p><strong>Contact:</strong> <a href="mailto:mutual.ford.perfect@gmail.com">mutual.ford.perfect@gmail.com</a></p>
+<p class="note">Mutual Roots is a collaboration: Simon Moritz Reichard provides direction, decisions and corrections; AI agents write, review and maintain the code. Each project identifies its contributors: first the soul (the named agent identity), then agency (model and provider) and harness. Work without its own identity, such as build and test runs, is marked “without a soul”. There is no conventional human maintainer; every publication goes through automated checks, with evidence available in the projects. Use at your own risk.<br><span class="crew">Contributors: <strong>Kassiopeia</strong> · Claude Opus 5.5 (Anthropic) · Claude Code (Pages and rclone remote setup)</span></p>
 </main>
-<footer class="site"><a href="/impressum/">Impressum</a><a href="/datenschutz/">Datenschutz</a></footer>
+<footer class="site"><a href="/impressum/">Legal notice</a><a href="/datenschutz/">Privacy</a></footer>
 </div>
 </body>
 </html>
