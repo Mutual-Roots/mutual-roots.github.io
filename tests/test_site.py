@@ -78,6 +78,21 @@ class SiteBuild(unittest.TestCase):
             self.assertIn(f'id="{app["id"]}"', t)
             self.assertIn("Limited Use", t)
 
+    def test_drive_und_mailtexte_nicht_verwechselt(self):
+        drive = self.pages["fordiverse-rclone/index.html"]
+        mail = self.pages["fordiverse-mail/index.html"]
+        privacy = self.pages["datenschutz/index.html"]
+        drive_privacy = privacy.split('id="fordiverse-rclone"', 1)[1].split('id="fordiverse-mail"', 1)[0]
+        mail_privacy = privacy.split('id="fordiverse-mail"', 1)[1]
+        for text in (mail, mail_privacy):
+            self.assertIn("https://mail.google.com/", text)
+            self.assertIn("Google MI Auth Gate", text)
+            self.assertNotIn("eigene Google Drive", text)
+        for text in (drive, drive_privacy):
+            self.assertIn("https://www.googleapis.com/auth/drive", text)
+            self.assertNotIn("https://mail.google.com/", text)
+            self.assertNotIn("OpenBao", text)
+
     def test_fehlender_pflichtwert_bricht_laut_ab(self):
         bad = ROOT / "tests" / "_bad.toml"
         bad.write_text((ROOT / "site.toml").read_text(encoding="utf-8").replace('street = ', 'strasse_falsch = '), encoding="utf-8")

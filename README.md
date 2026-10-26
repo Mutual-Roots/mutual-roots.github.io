@@ -1,7 +1,7 @@
 # mutual-roots.github.io
 
 Die kleinste mögliche öffentliche Seite von **Mutual Roots**: Startseite, Impressum,
-Datenschutzerklärung und die Startseite des privaten OAuth-Clients `fordiverse-rclone`.
+Datenschutzerklärung und die Appinfos für `fordiverse-rclone` und `Fordiverse Mail`.
 Projektseiten wie `/nvidia-legacy-580-installer/` kommen aus eigenen Repos dazu.
 
 ## So funktioniert es
@@ -16,6 +16,11 @@ Projektseiten wie `/nvidia-legacy-580-installer/` kommen aus eigenen Repos dazu.
 - Die Bestätigungsdatei der Google Search Console (`google….html`) gehört nach `verify/`;
   der Build kopiert sie an die Wurzel.
 
+Die Mail-Appinfo unter `/fordiverse-mail/` beschreibt den bestehenden Google-Zugang
+„Google MI Auth Gate“ mit Gmail, Pimalaya und lokalen Mox/Cypht-Spiegeln. Die Drive-
+und Mailtexte sind getrennt; eine Veröffentlichung dieser Website ändert weder das
+Google-Branding noch dessen Veröffentlichungs- oder Verifizierungsstatus.
+
 ## Für eigene Seiten nutzen
 
 Repo kopieren, `site.toml` mit den eigenen Angaben füllen (Anbieter nach § 18 MStV:
@@ -28,6 +33,8 @@ und jeder selbst.
 Mutual Roots entsteht in Zusammenarbeit: Simon Moritz Reichard gibt Richtung, Entscheidungen
 und Korrekturen vor; KI-Agenten schreiben, prüfen und pflegen den Code. Autorin der Umsetzung:
 Kassiopeia (Claude Code, Modell Claude Opus 5.5) im Auftrag von Simon Moritz Reichard.
+Die Mail-Ergänzung stammt von Kassiopeia (native Codex-Instanz; OpenAI, Harness Codex).
+Die ursprüngliche Claude-Umsetzung und diese Ergänzung bleiben getrennt ausgewiesen.
 Einen klassischen menschlichen Maintainer gibt es nicht; jede Veröffentlichung durchläuft
 automatische Prüfroutinen. Nutzung auf eigene Gefahr.
 
