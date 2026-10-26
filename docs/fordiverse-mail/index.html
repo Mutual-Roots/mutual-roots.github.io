@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark light">
+<title>Fordiverse Mail</title>
+<link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/favicon-32.png">
+<link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png">
+<link rel="preload" href="/assets/fonts/fraunces/fraunces-latin-full-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/atkinson-hyperlegible-next/atkinson-hyperlegible-next-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+  /* Schriften: OFL 1.1, selbst ausgeliefert (assets/fonts/HERKUNFT.md) */
+  @font-face { font-family: "Fraunces"; font-style: normal; font-weight: 100 900; font-display: swap;
+    src: url("/assets/fonts/fraunces/fraunces-latin-full-normal.woff2") format("woff2"); }
+  @font-face { font-family: "Atkinson Hyperlegible Next"; font-style: normal; font-weight: 200 800; font-display: swap;
+    src: url("/assets/fonts/atkinson-hyperlegible-next/atkinson-hyperlegible-next-latin-wght-normal.woff2") format("woff2"); }
+  /* Dunkel (Standard): Tiefgruen der Mutual-Roots-Linie */
+  :root {
+    --bg: #06110c; --bg-2: #0b1a13; --ink: #eef7f0; --ink-soft: #cfe3d5; --muted: #93ad9c;
+    --line: rgba(157, 205, 176, .20); --accent: #9ce6b6; --root: #d9b98a; --mark-bg: #10241a;
+    --serif: "Fraunces", "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+    --sans: "Atkinson Hyperlegible Next", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  }
+  /* Hell: Anthropic-Elfenbein, Tinte, Ton */
+  @media (prefers-color-scheme: light) {
+    :root { --bg: #faf9f5; --bg-2: #f0eee6; --ink: #141413; --ink-soft: #2b2a27; --muted: #63615a;
+      --line: #e8e6dc; --accent: #35593f; --root: #b9583a; --mark-bg: #efe9dd; }
+  }
+  * { box-sizing: border-box; }
+  html { background: var(--bg); color: var(--ink); -webkit-text-size-adjust: 100%; }
+  body { margin: 0; min-height: 100vh; font: 17px/1.65 var(--sans);
+    background: radial-gradient(120% 60% at 50% -10%, var(--bg-2), var(--bg) 70%); }
+  .wrap { max-width: 44rem; margin: 0 auto; padding: 2.2rem 1.25rem 3rem; }
+  header.site { display: flex; align-items: center; gap: .8rem; padding-bottom: 1.6rem; border-bottom: 1px solid var(--line); }
+  header.site a { display: flex; align-items: center; gap: .75rem; color: var(--ink); text-decoration: none; }
+  .mark { width: 2.6rem; height: 2.6rem; border-radius: 50%; object-fit: cover; flex: none; display: block;
+    box-shadow: 0 0 0 1px var(--line), 0 0 0 3px var(--bg), 0 0 0 4px color-mix(in srgb, var(--accent) 35%, transparent); }
+  /* Wortmarke: "Mutual" leicht, "Roots" kraeftig in Wurzelfarbe; Display-Schnitt (opsz) */
+  /* SOFT rundet die Enden, WONK laesst einzelne Buchstaben tanzen: verspielt, aber gesetzt */
+  .wordmark { margin: 0; font-family: var(--serif); font-size: 1.22rem; line-height: 1; letter-spacing: -.005em;
+    font-variation-settings: "opsz" 144, "SOFT" 100, "WONK" 1; font-weight: 400; }
+  .wordmark .w1 { font-weight: 340; }
+  .wordmark .w2 { font-weight: 780; color: var(--root); letter-spacing: -.012em; }
+  .wordmark small { display: block; margin-top: .38rem; font: 500 .66rem/1 var(--sans); letter-spacing: .14em;
+    text-transform: uppercase; color: var(--muted); white-space: nowrap; font-variation-settings: normal; }
+  /* Startseite: grosses Emblem, Wortmarke als Ueberschrift daneben (Desktop) bzw. darunter (Handy) */
+  .home header.site { border-bottom: 0; padding-bottom: 0; }
+  /* Wolf und Schriftzug skalieren im festen Verhaeltnis (gleiche vw-Basis), bleiben nebeneinander */
+  .home header.site a { gap: clamp(.9rem, 4vw, 1.6rem); }
+  .home .mark { width: clamp(4.6rem, 22vw, 8.5rem); height: clamp(4.6rem, 22vw, 8.5rem);
+    box-shadow: 0 0 0 1px var(--line), 0 0 0 5px var(--bg), 0 0 0 6px color-mix(in srgb, var(--accent) 40%, transparent), 0 18px 50px rgba(0,0,0,.35); }
+  .home .wordmark { font-size: clamp(1.95rem, 9.3vw, 3.6rem); line-height: .95; }
+  .home .wordmark .w2 { display: block; }
+  .home .wordmark small { margin-top: clamp(.5rem, 2.2vw, .9rem); font-size: clamp(.56rem, 1.95vw, .74rem); letter-spacing: .12em; }
+  /* Hell: weicherer, warmer Schatten unter dem Emblem (auf Elfenbein wirkte Schwarz .35 zu schwer) */
+  @media (prefers-color-scheme: light) {
+    .home .mark { box-shadow: 0 0 0 1px var(--line), 0 0 0 5px var(--bg), 0 0 0 6px color-mix(in srgb, var(--accent) 40%, transparent), 0 12px 30px rgba(60, 40, 20, .14); }
+  }
+  @media (min-width: 64rem) {
+    .home .wrap { max-width: 52rem; }
+    .home .mark { width: 10.5rem; height: 10.5rem; }
+    .home .wordmark { font-size: 4.45rem; }
+    .home header.site a { gap: 2rem; }
+  }
+  @media (max-width: 21rem) {
+    .home header.site a { flex-direction: column; align-items: flex-start; }
+  }
+  main { padding-top: 2.2rem; }
+  h1 { font: 600 clamp(1.9rem, 4.5vw, 2.5rem)/1.15 var(--serif); letter-spacing: -.01em; margin: 0 0 1.2rem; hyphens: auto; overflow-wrap: break-word; }
+  h2 { font: 600 .78rem/1.3 var(--sans); letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin: 2.4rem 0 .7rem; }
+  p, ul, address { margin: 0 0 1rem; color: var(--ink-soft); overflow-wrap: break-word; }
+  ul { padding-left: 1.1rem; } li { margin: .35rem 0; } li::marker { color: var(--root); }
+  strong { color: var(--ink); font-weight: 600; }
+  address { font-style: normal; line-height: 1.7; }
+  a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: .18em; }
+  a:hover { text-decoration-thickness: 2px; }
+  code { font: .88em ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: var(--ink); background: var(--mark-bg); padding: .08em .35em; border-radius: 4px; overflow-wrap: anywhere; }
+  .lede { font: 400 1.18rem/1.6 var(--serif); color: var(--ink); }
+  .note { margin-top: 2.6rem; padding-left: 1rem; border-left: 2px solid var(--root); color: var(--muted); font-size: .92rem; }
+  .muted { color: var(--muted); font-size: .92rem; }
+  .crew { display: inline-block; margin-top: .3rem; color: var(--muted); font-size: .86rem; line-height: 1.5; }
+  .crew strong { color: var(--ink-soft); font-weight: 600; }
+  footer.site { margin-top: 3.4rem; padding-top: 1.1rem; border-top: 1px solid var(--line); display: flex; gap: 1.4rem; flex-wrap: wrap; font-size: .9rem; color: var(--muted); }
+  footer.site a { color: var(--muted); }
+  footer.site a:hover { color: var(--ink); }
+</style>
+</head>
+<body class="page">
+<div class="wrap">
+<header class="site">
+  <a href="/" aria-label="Mutual Roots, Startseite">
+    <img class="mark" src="/assets/wolf.webp" alt="" width="512" height="512" decoding="async">
+    <span class="wordmark"><span class="w1">Mutual</span> <span class="w2">Roots</span><small>privat · nicht-kommerziell</small></span>
+  </a>
+</header>
+<main>
+<h1>Fordiverse Mail</h1>
+<p class="lede">Fordiverse Mail ermöglicht das Auflisten und Lesen freigegebener Gmail-Postfächer über den selbst betriebenen Fordiverse-Gateway und Pimalaya. Konfigurierte lokale Spiegel werden mit Mox gespeichert und im Cypht-Reader gelesen.</p>
+<p><strong>Für wen?</strong> Das private Angebot ist für den Betreiber und persönlich bekannte Kontoinhaberinnen und Kontoinhaber bestimmt, die ihr jeweiliges Gmail-Konto selbst freigeben. Es gibt keine öffentliche Selbstregistrierung.</p>
+<p><strong>Google-Anmeldung:</strong> Google-Cloud-Projekt „Google MI Auth Gate“; der bisherige Zustimmungsdialog kann noch „extern“ anzeigen. Eine Umbenennung oder Google-Verifizierung wird hiermit nicht behauptet.</p>
+<p><strong>Welche Daten?</strong> Ordner und Nachrichtenlisten, Nachrichteninhalte und Kopfzeilen sowie gegebenenfalls Anhänge der jeweils freigegebenen Gmail-Konten. Der Google-Zugang umfasst keine Konten anderer Mailanbieter.</p>
+<p><strong>Google-Berechtigung:</strong> <code>https://mail.google.com/</code>. Dieser umfassende Gmail-Berechtigungsumfang erlaubt technisch auch das Senden und Löschen von Nachrichten. Die hier beschriebene aktuelle Nutzung ist das Auflisten, Lesen und lokale Spiegeln; die Google-Freigabe ist keine eigenständige Beauftragung zum Senden oder Löschen.</p>
+<p><strong>Speicherung und Agenten:</strong> Nachrichten, Kopfzeilen und Anhänge können in konfigurierten lokalen Spiegeln und Mox, in vorübergehenden Abrufdateien sowie in Betriebsprotokollen und Sicherungen verbleiben. Es wird hier keine feste Aufbewahrungsdauer oder automatische Löschung zugesagt. Berechtigte Agenten können ausgewählte Mailinhalte für die beauftragte Bearbeitung erhalten. Wenn die Nutzerin oder der Nutzer eine Verarbeitung mit einem Cloud-KI-Modell beauftragt, können diese Inhalte an den ausgewählten Modellanbieter übermittelt werden. Dessen Verarbeitung und Aufbewahrung hängen vom tatsächlich gewählten Dienst und seiner Konfiguration ab; diese Seite bestätigt dafür keine geprüfte Aufbewahrungs- oder Nicht-Trainingsgarantie.</p>
+<p>Eine Nutzung für Werbung, den Verkauf von Maildaten oder das Training allgemeiner KI-Modelle ist mit dieser Mailfreigabe nicht gestattet. Details zu Zugangsdaten, Weitergabe, Widerruf und Löschung: <a href="/datenschutz/#fordiverse-mail">Datenschutzerklärung zu Fordiverse Mail</a>.</p>
+<p><strong>Zugriff widerrufen:</strong> <a href="https://myaccount.google.com/permissions">https://myaccount.google.com/permissions</a></p>
+<p><strong>Kontakt:</strong> Simon Moritz Reichard, <a href="mailto:mutual.ford.perfect@gmail.com">mutual.ford.perfect@gmail.com</a></p>
+<p class="note">Mutual Roots entsteht in Zusammenarbeit: Simon Moritz Reichard gibt Richtung, Entscheidungen und Korrekturen vor; KI-Agenten schreiben, prüfen und pflegen den Code. Bei jedem Projekt steht, wer daran gearbeitet hat: zuerst die Seele (die benannte Agenten-Identität), dann Agency (Modell und Anbieter) und Harness; Arbeit ohne eigene Identität, etwa reine Bau- und Prüfläufe, ist als „ohne Seele“ gekennzeichnet. Einen klassischen menschlichen Maintainer gibt es nicht; jede Veröffentlichung durchläuft automatische Prüfroutinen, die Belege liegen offen bei den Projekten. Nutzung auf eigene Gefahr.<br><span class="crew">Beteiligt: <strong>Kassiopeia (native Codex-Instanz)</strong> · OpenAI · Codex (Mail-Ergänzung)</span></p>
+<h2 lang="en">English</h2>
+<p lang="en">Fordiverse Mail is a private, self-hosted Gmail access service for its operator and personally known account holders. It uses OAuth, the Fordiverse gateway and Pimalaya to list and read Gmail and configured Mox/Cypht mail mirrors. The full https://mail.google.com/ scope technically permits sending and deletion as well; those actions are not independently authorized by granting access. Messages, headers and attachments may persist in local mirrors, temporary fetch files, operational logs and backups. Authorized agents may receive selected mail content; user-requested cloud AI processing may send it to the selected provider. Provider retention and training protections depend on the actual service and are not certified here. Advertising, sale of mail data and general-purpose model training are not permitted by this grant. Revocation stops future access through the grant but does not automatically erase stored copies. Contact the operator about deletion; no fixed retention or backup-deletion period is promised. The Google Cloud project is Google MI Auth Gate; its existing consent dialog may still show extern. Privacy policy: <a href="https://mutual-roots.github.io/datenschutz/#fordiverse-mail">https://mutual-roots.github.io/datenschutz/#fordiverse-mail</a></p>
+</main>
+<footer class="site"><a href="/impressum/">Impressum</a><a href="/datenschutz/">Datenschutz</a></footer>
+</div>
+</body>
+</html>

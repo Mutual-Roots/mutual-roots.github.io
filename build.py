@@ -20,6 +20,9 @@ REQUIRED = {
     "ai": ["notice"],
 }
 APP_REQUIRED = ["id", "title", "kind", "tool_name", "tool_url", "scope", "data_examples", "token_storage", "no_ml_training"]
+MAIL_REQUIRED = ["id", "title", "kind", "scope", "google_project", "consent_name", "listing_note",
+                 "purpose", "audience", "google_data", "scope_explanation", "token_storage",
+                 "mail_storage", "agent_access", "use_limits", "revocation", "deletion", "english_summary"]
 
 
 def die(msg):
@@ -36,7 +39,10 @@ def load(path):
             if k not in cfg[sec] or cfg[sec][k] in ("", None):
                 die(f"{sec}.{k} fehlt in {path}")
     for app in cfg.get("apps", []):
-        for k in APP_REQUIRED:
+        profile = app.get("profile", "drive")
+        if profile not in ("drive", "mail"):
+            die(f"apps.profile unbekannt fuer {app.get('id', '?')}: {profile}")
+        for k in MAIL_REQUIRED if profile == "mail" else APP_REQUIRED:
             if k not in app or app[k] in ("", None):
                 die(f"apps.{k} fehlt fuer {app.get('id', '?')}")
     for p in cfg.get("projects", []):
@@ -90,7 +96,7 @@ def page_index(cfg):
     s, op = cfg["site"], cfg["operator"]
     items = []
     for app in cfg.get("apps", []):
-        items.append(f"<li>{link('/' + app['id'] + '/', app['title'])}: {e(app['kind'])}, nur für die eigene Nutzung.<br>{crew_html(app['crew'])}</li>")
+        items.append(f"<li>{link('/' + app['id'] + '/', app['title'])}: {e(app['kind'])}, {e(app.get('listing_note', 'nur für die eigene Nutzung.'))}<br>{crew_html(app['crew'])}</li>")
     for p in cfg.get("projects", []):
         if p["enabled"]:
             items.append(f"<li>{link('/' + p['id'] + '/', p['title'])}: {e(p['summary'])}<br>{crew_html(p['crew'])}</li>")
@@ -117,6 +123,8 @@ def page_impressum(cfg):
 
 
 def app_privacy(app, op):
+    if app.get("profile") == "mail":
+        return mail_privacy(app, op)
     n = e(op["name"])
     ml = "<li><strong>Kein KI-Training:</strong> Die Daten werden nicht zum Training von KI- oder ML-Modellen verwendet.</li>" if app["no_ml_training"] else ""
     return f"""<h2 id="{e(app['id'])}">{e(app['title'])} ({e(app['kind'])})</h2>
@@ -132,6 +140,44 @@ def app_privacy(app, op):
 <li><strong>Betroffene:</strong> Verarbeitet werden ausschließlich eigene Daten von {n}.</li>
 </ul>
 <p lang="en"><em>English summary:</em> {e(app['title'])} is a private OAuth client ({e(app['kind'])}) used only by {n} with the open-source tool {e(app['tool_name'])} to access {n}'s own Google Drive (upload, download, sync and back up own files). It is not a public service and has no other users. Google user data stays on {n}'s own devices and is never shared, sold or used for advertising{', nor used to train AI/ML models' if app['no_ml_training'] else ''}. {e(app['title'])}'s use and transfer to any other app of information received from Google APIs will adhere to the Google API Services User Data Policy, including the Limited Use requirements. Access can be revoked at https://myaccount.google.com/permissions. Contact: {e(op['email'])}.</p>"""
+
+
+
+def mail_privacy(app, op):
+    return f"""<h2 id="{e(app['id'])}">{e(app['title'])} ({e(app['kind'])})</h2>
+<p>Betreiber und Kontakt: {e(op['name'])}, {link('mailto:' + op['email'], op['email'])}. {e(app['audience'])}</p>
+<p>Diese App gehört zum Google-Cloud-Projekt „{e(app['google_project'])}“. Im bestehenden Google-Zustimmungsdialog kann noch „{e(app['consent_name'])}“ als Appname erscheinen. Diese Informationsseite bestätigt keine bereits erfolgte Änderung oder Verifizierung des Google-Brandings.</p>
+<ul>
+<li><strong>Abgerufene Google-Daten:</strong> {e(app['google_data'])}</li>
+<li><strong>Berechtigung:</strong> <code>{e(app['scope'])}</code>. {e(app['scope_explanation'])}</li>
+<li><strong>Zweck und tatsächliche Nutzung:</strong> {e(app['purpose'])}</li>
+<li><strong>Zugangsdaten:</strong> {e(app['token_storage'])}</li>
+<li><strong>Mailkopien und Speicherdauer:</strong> {e(app['mail_storage'])}</li>
+<li><strong>Agenten und externe Verarbeitung:</strong> {e(app['agent_access'])}</li>
+<li><strong>Nutzungsgrenzen:</strong> {e(app['use_limits'])}</li>
+<li><strong>Limited Use:</strong> Die Nutzung und Weitergabe von Informationen, die {e(app['title'])} von Google-APIs erhält, richtet sich nach der {link('https://developers.google.com/terms/api-services-user-data-policy', 'Google API Services User Data Policy')}, einschließlich der Limited-Use-Anforderungen.</li>
+<li><strong>Widerruf:</strong> {e(app['revocation'])} {link('https://myaccount.google.com/permissions', 'Google-Kontoberechtigungen')}</li>
+<li><strong>Löschung:</strong> {e(app['deletion'])}</li>
+</ul>
+<p>Diese öffentliche Informationswebsite erhält keine OAuth-Tokens oder Mailinhalte. Ihre technischen Besuchsdaten sind oben unter Hosting beschrieben.</p>
+<p lang="en"><em>English summary:</em> {e(app['english_summary'])} Contact: {e(op['email'])}. Use and transfer of Google API data adheres to the Google API Services User Data Policy, including the Limited Use requirements.</p>"""
+
+
+def page_mail(app, cfg):
+    op = cfg["operator"]
+    return f"""<h1>{e(app['title'])}</h1>
+<p class="lede">{e(app['purpose'])}</p>
+<p><strong>Für wen?</strong> {e(app['audience'])}</p>
+<p><strong>Google-Anmeldung:</strong> Google-Cloud-Projekt „{e(app['google_project'])}“; der bisherige Zustimmungsdialog kann noch „{e(app['consent_name'])}“ anzeigen. Eine Umbenennung oder Google-Verifizierung wird hiermit nicht behauptet.</p>
+<p><strong>Welche Daten?</strong> {e(app['google_data'])}</p>
+<p><strong>Google-Berechtigung:</strong> <code>{e(app['scope'])}</code>. {e(app['scope_explanation'])}</p>
+<p><strong>Speicherung und Agenten:</strong> {e(app['mail_storage'])} {e(app['agent_access'])}</p>
+<p>{e(app['use_limits'])} Details zu Zugangsdaten, Weitergabe, Widerruf und Löschung: {link('/datenschutz/#' + app['id'], 'Datenschutzerklärung zu ' + app['title'])}.</p>
+<p><strong>Zugriff widerrufen:</strong> {link('https://myaccount.google.com/permissions')}</p>
+<p><strong>Kontakt:</strong> {e(op['name'])}, {link('mailto:' + op['email'], op['email'])}</p>
+<p class="note">{e(cfg['ai']['notice'])}<br>{crew_html(app['crew'])}</p>
+<h2 lang="en">English</h2>
+<p lang="en">{e(app['english_summary'])} Privacy policy: {link(cfg['site']['base_url'] + '/datenschutz/#' + app['id'])}</p>"""
 
 
 def page_datenschutz(cfg):
@@ -154,13 +200,15 @@ def page_datenschutz(cfg):
 </ul>
 <h2>4. Links zu anderen Websites</h2>
 <p>Links zu anderen Websites werden erst aufgerufen, wenn Sie sie anklicken. Ab dann gilt die Datenschutzerklärung des jeweiligen Anbieters.</p>
-<h2>5. OAuth-Clients für die eigene Nutzung</h2>
+<h2>5. OAuth-Clients für private Nutzung</h2>
 {apps}
 <h2>6. Ihre Rechte</h2>
-<p>Sie haben nach der DSGVO das Recht auf Auskunft (Art. 15), Berichtigung (Art. 16), Löschung (Art. 17), Einschränkung der Verarbeitung (Art. 18) und Datenübertragbarkeit (Art. 20). Gegen Verarbeitungen auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO können Sie Widerspruch einlegen (Art. 21). Weil ich selbst keine Besucherdaten speichere, betreffen solche Anliegen praktisch die Protokolle von GitHub; bitte wenden Sie sich dafür auch direkt an GitHub. Sie haben außerdem das Recht, sich bei einer Datenschutz-Aufsichtsbehörde zu beschweren (Art. 77 DSGVO).</p>"""
+<p>Sie haben nach der DSGVO das Recht auf Auskunft (Art. 15), Berichtigung (Art. 16), Löschung (Art. 17), Einschränkung der Verarbeitung (Art. 18) und Datenübertragbarkeit (Art. 20). Gegen Verarbeitungen auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO können Sie Widerspruch einlegen (Art. 21). Bei Anliegen zur Mailverarbeitung und zu gespeicherten Mailkopien wenden Sie sich bitte an den oben genannten Verantwortlichen. Besuchsprotokolle dieser statischen Website verwaltet GitHub; bitte wenden Sie sich dafür auch direkt an GitHub. Sie haben außerdem das Recht, sich bei einer Datenschutz-Aufsichtsbehörde zu beschweren (Art. 77 DSGVO).</p>"""
 
 
 def page_app(app, cfg):
+    if app.get("profile") == "mail":
+        return page_mail(app, cfg)
     s, op = cfg["site"], cfg["operator"]
     n = e(op["name"])
     return f"""<h1>{e(app['title'])}</h1>

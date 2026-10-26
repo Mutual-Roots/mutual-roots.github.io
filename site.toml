@@ -6,7 +6,7 @@
 base_url = "https://mutual-roots.github.io"
 project_name = "Mutual Roots"
 lang = "de"
-stand = "20. Oktober 2026"
+stand = "26. Oktober 2026"
 # Emblem (liegt im Repo unter assets/, wird nach docs/assets/ kopiert); der Wolf aus dem Profilbild
 emblem = "assets/wolf.webp"
 
@@ -32,6 +32,13 @@ soul = "Kassiopeia"
 agency = "Claude Opus 5.5 (Anthropic)"
 harness = "Claude Code"
 
+
+[[site.crew]]
+soul = "Kassiopeia (native Codex-Instanz)"
+agency = "OpenAI"
+harness = "Codex"
+role = "Mail-Ergänzung"
+
 [[apps]]
 # OAuth-Client, dessen Startseite unter /<id>/ liegt
 id = "fordiverse-rclone"
@@ -49,6 +56,34 @@ soul = "Kassiopeia"
 agency = "Claude Opus 5.5 (Anthropic)"
 harness = "Claude Code"
 role = "Seiten, Einrichtung des rclone-Remotes"
+
+
+[[apps]]
+id = "fordiverse-mail"
+title = "Fordiverse Mail"
+kind = "Privater Google-OAuth-Mailzugang"
+profile = "mail"
+google_project = "Google MI Auth Gate"
+consent_name = "extern"
+listing_note = "für den Betreiber und persönlich bekannte Kontoinhaberinnen und Kontoinhaber."
+scope = "https://mail.google.com/"
+purpose = "Fordiverse Mail ermöglicht das Auflisten und Lesen freigegebener Gmail-Postfächer über den selbst betriebenen Fordiverse-Gateway und Pimalaya. Konfigurierte lokale Spiegel werden mit Mox gespeichert und im Cypht-Reader gelesen."
+audience = "Das private Angebot ist für den Betreiber und persönlich bekannte Kontoinhaberinnen und Kontoinhaber bestimmt, die ihr jeweiliges Gmail-Konto selbst freigeben. Es gibt keine öffentliche Selbstregistrierung."
+google_data = "Ordner und Nachrichtenlisten, Nachrichteninhalte und Kopfzeilen sowie gegebenenfalls Anhänge der jeweils freigegebenen Gmail-Konten. Der Google-Zugang umfasst keine Konten anderer Mailanbieter."
+scope_explanation = "Dieser umfassende Gmail-Berechtigungsumfang erlaubt technisch auch das Senden und Löschen von Nachrichten. Die hier beschriebene aktuelle Nutzung ist das Auflisten, Lesen und lokale Spiegeln; die Google-Freigabe ist keine eigenständige Beauftragung zum Senden oder Löschen."
+token_storage = "OAuth-Tokens werden im bestehenden selbst betriebenen Geheimnisspeicher OpenBao und in den dafür vorgesehenen geschützten Dienstlaufzeiten verwahrt. Sie werden nicht auf dieser öffentlichen Website gespeichert."
+mail_storage = "Nachrichten, Kopfzeilen und Anhänge können in konfigurierten lokalen Spiegeln und Mox, in vorübergehenden Abrufdateien sowie in Betriebsprotokollen und Sicherungen verbleiben. Es wird hier keine feste Aufbewahrungsdauer oder automatische Löschung zugesagt."
+agent_access = "Berechtigte Agenten können ausgewählte Mailinhalte für die beauftragte Bearbeitung erhalten. Wenn die Nutzerin oder der Nutzer eine Verarbeitung mit einem Cloud-KI-Modell beauftragt, können diese Inhalte an den ausgewählten Modellanbieter übermittelt werden. Dessen Verarbeitung und Aufbewahrung hängen vom tatsächlich gewählten Dienst und seiner Konfiguration ab; diese Seite bestätigt dafür keine geprüfte Aufbewahrungs- oder Nicht-Trainingsgarantie."
+use_limits = "Eine Nutzung für Werbung, den Verkauf von Maildaten oder das Training allgemeiner KI-Modelle ist mit dieser Mailfreigabe nicht gestattet."
+revocation = "Die Google-Freigabe kann jederzeit im Google-Konto widerrufen werden. Damit endet der künftige Zugriff über diese Freigabe; bereits gespeicherte Mailkopien werden dadurch nicht automatisch gelöscht."
+deletion = "Für die Löschung vorhandener Mailkopien und Zugangsdaten wenden sich Kontoinhaberinnen und Kontoinhaber an den Betreiber. Sicherungskopien unterliegen der jeweils tatsächlich eingesetzten Sicherungs- und Aufbewahrungsregelung; eine sofortige Entfernung aus allen Sicherungen oder eine feste Frist wird hier nicht zugesagt."
+english_summary = "Fordiverse Mail is a private, self-hosted Gmail access service for its operator and personally known account holders. It uses OAuth, the Fordiverse gateway and Pimalaya to list and read Gmail and configured Mox/Cypht mail mirrors. The full https://mail.google.com/ scope technically permits sending and deletion as well; those actions are not independently authorized by granting access. Messages, headers and attachments may persist in local mirrors, temporary fetch files, operational logs and backups. Authorized agents may receive selected mail content; user-requested cloud AI processing may send it to the selected provider. Provider retention and training protections depend on the actual service and are not certified here. Advertising, sale of mail data and general-purpose model training are not permitted by this grant. Revocation stops future access through the grant but does not automatically erase stored copies. Contact the operator about deletion; no fixed retention or backup-deletion period is promised. The Google Cloud project is Google MI Auth Gate; its existing consent dialog may still show extern."
+
+[[apps.crew]]
+soul = "Kassiopeia (native Codex-Instanz)"
+agency = "OpenAI"
+harness = "Codex"
+role = "Mail-Ergänzung"
 
 [[projects]]
 # Projektseiten (eigene Repos, erscheinen unter /<id>/). enabled = false: noch nicht verlinkt.
