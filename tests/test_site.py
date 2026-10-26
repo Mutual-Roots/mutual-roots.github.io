@@ -42,6 +42,10 @@ class SiteBuild(unittest.TestCase):
             german = rel.startswith("de/")
             lang = "de" if german else "en"
             self.assertIn(f'<html lang="{lang}">', text, rel)
+            header = text.split('<header class="site">', 1)[1].split('</header>', 1)[0]
+            self.assertIn('class="site-toolbar"', header, rel)
+            self.assertIn('class="language-switch"', header, rel)
+            self.assertIn(f'<span lang="{lang}" aria-current="page">', header, rel)
             logical = rel.removeprefix("de/").removesuffix("index.html")
             en_url, de_url = "/" + logical, "/de/" + logical
             for code, url in (("en", en_url), ("de", de_url), ("x-default", en_url)):
@@ -122,6 +126,10 @@ class SiteBuild(unittest.TestCase):
                 self.assertIn("https://www.googleapis.com/auth/drive", text)
                 self.assertNotIn("https://mail.google.com/", text)
                 self.assertNotIn("OpenBao", text)
+            self.assertIn("Fordiverse rclone", drive)
+            self.assertNotIn("Mail addition", mail)
+            self.assertIn("Versand wird noch angeschlossen" if prefix else "sending is still being connected", mail_privacy)
+            self.assertNotIn('<h2 lang="en">English</h2>', drive)
             self.assertIn("IMAPS", mail_privacy)
             self.assertIn("nicht personalisierter" if prefix else "non-personalized", mail_privacy)
             self.assertIn("26. Oktober 2026" if prefix else "26 October 2026", privacy)

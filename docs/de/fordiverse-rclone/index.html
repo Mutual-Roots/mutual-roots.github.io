@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="dark light">
-<title>fordiverse-rclone</title>
+<title>Fordiverse rclone</title>
 <link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48">
 <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/favicon-32.png">
 <link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png">
@@ -88,22 +88,36 @@
   footer.site { margin-top: 3.4rem; padding-top: 1.1rem; border-top: 1px solid var(--line); display: flex; gap: 1.4rem; flex-wrap: wrap; font-size: .9rem; color: var(--muted); }
   footer.site a { color: var(--muted); }
   footer.site a:hover { color: var(--ink); }
+
+  /* Header toolbar: language choice stays above and right of the unchanged brand row. */
+  .site-toolbar { display: flex; flex-direction: column; align-items: flex-start; gap: 1rem; width: 100%; }
+  .site-toolbar .language-switch { align-self: flex-end; display: inline-flex; gap: .15rem; padding: .2rem;
+    border: 1px solid var(--line); border-radius: .65rem; background: var(--bg-2); }
+  .site-toolbar .language-switch a, .site-toolbar .language-switch span { display: flex; align-items: center; justify-content: center;
+    min-height: 44px; min-width: 4.5rem; padding: .3rem .65rem; border-radius: .45rem;
+    font-size: .82rem; line-height: 1.2; color: var(--muted); text-decoration: none; }
+  .site-toolbar .language-switch [aria-current="page"] { background: var(--mark-bg); color: var(--ink);
+    box-shadow: inset 0 0 0 1px var(--line); font-weight: 600; }
+  .site-toolbar .language-switch a:hover { background: var(--mark-bg); color: var(--ink); }
+  .site-toolbar .language-switch a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 </style>
 </head>
 <body class="page">
 <div class="wrap">
 <header class="site">
-  <a href="/de/" aria-label="Mutual Roots, Startseite">
-    <img class="mark" src="/assets/wolf.webp" alt="" width="512" height="512" decoding="async">
-    <span class="wordmark"><span class="w1">Mutual</span> <span class="w2">Roots</span><small>privat · nicht-kommerziell</small></span>
-  </a>
+  <div class="site-toolbar">
+    <nav aria-label="Sprache" class="language-switch"><a href="/fordiverse-rclone/" lang="en" hreflang="en">English</a><span lang="de" aria-current="page">Deutsch</span></nav>
+    <a href="/de/" aria-label="Mutual Roots, Startseite">
+      <img class="mark" src="/assets/wolf.webp" alt="" width="512" height="512" decoding="async">
+      <span class="wordmark"><span class="w1">Mutual</span> <span class="w2">Roots</span><small>privat · nicht-kommerziell</small></span>
+    </a>
+  </div>
 </header>
-<nav aria-label="Sprache" class="muted"><a href="/fordiverse-rclone/" lang="en" hreflang="en">English</a> · <span lang="de" aria-current="page">Deutsch</span></nav>
 <main>
-<h1>fordiverse-rclone</h1>
-<p><strong>Was ist das?</strong> fordiverse-rclone ist ein privater Google-OAuth-Client (Desktop-App) von Simon Moritz Reichard. Er wird mit dem Open-Source-Programm <a href="https://rclone.org">rclone</a> benutzt, um von eigenen Rechnern auf das eigene Google Drive zuzugreifen: eigene Dateien hochladen, herunterladen, synchronisieren und sichern.</p>
+<h1>Fordiverse rclone</h1>
+<p><strong>Was ist das?</strong> Fordiverse rclone ist ein privater Google-OAuth-Client (Desktop-App) von Simon Moritz Reichard. Er wird mit dem Open-Source-Programm <a href="https://rclone.org">rclone</a> benutzt, um von eigenen Rechnern auf das eigene Google Drive zuzugreifen: eigene Dateien hochladen, herunterladen, synchronisieren und sichern.</p>
 <p><strong>Für wen?</strong> Nur für Simon Moritz Reichard selbst. Es ist kein öffentlicher Dienst; es gibt keine Anmeldung, keinen Download und keine weiteren Nutzerinnen oder Nutzer.</p>
-<p><strong>Welche Daten?</strong> Nur Dateien und Metadaten im eigenen Google Drive von Simon Moritz Reichard (Berechtigung: <code>https://www.googleapis.com/auth/drive</code>). Die Daten bleiben auf eigenen Geräten; keine Weitergabe, kein Verkauf, keine Werbung. Die Nutzung von Daten aus Google-APIs folgt der Google API Services User Data Policy, einschließlich der Limited-Use-Anforderungen. Details: <a href="/de/datenschutz/#fordiverse-rclone">Datenschutzerklärung, Abschnitt fordiverse-rclone</a>.</p>
+<p><strong>Welche Daten?</strong> Nur Dateien und Metadaten im eigenen Google Drive von Simon Moritz Reichard (Berechtigung: <code>https://www.googleapis.com/auth/drive</code>). Die Daten bleiben auf eigenen Geräten; keine Weitergabe, kein Verkauf, keine Werbung. Die Nutzung von Daten aus Google-APIs folgt der Google API Services User Data Policy, einschließlich der Limited-Use-Anforderungen. Details: <a href="/de/datenschutz/#fordiverse-rclone">Datenschutzerklärung, Abschnitt Fordiverse rclone</a>.</p>
 <p><strong>Zugriff widerrufen:</strong> <a href="https://myaccount.google.com/permissions">https://myaccount.google.com/permissions</a></p>
 <p><strong>Kontakt:</strong> <a href="mailto:mutual.ford.perfect@gmail.com">mutual.ford.perfect@gmail.com</a></p>
 <p class="note">Mutual Roots entsteht in Zusammenarbeit: Simon Moritz Reichard gibt Richtung, Entscheidungen und Korrekturen vor; KI-Agenten schreiben, prüfen und pflegen den Code. Bei jedem Projekt steht, wer daran gearbeitet hat: zuerst die Seele (die benannte Agenten-Identität), dann Agency (Modell und Anbieter) und Harness; Arbeit ohne eigene Identität, etwa reine Bau- und Prüfläufe, ist als „ohne Seele“ gekennzeichnet. Einen klassischen menschlichen Maintainer gibt es nicht; jede Veröffentlichung durchläuft automatische Prüfroutinen, die Belege liegen offen bei den Projekten. Nutzung auf eigene Gefahr.<br><span class="crew">Beteiligt: <strong>Kassiopeia</strong> · Claude Opus 5.5 (Anthropic) · Claude Code (Seiten, Einrichtung des rclone-Remotes)</span></p>

@@ -88,17 +88,31 @@
   footer.site { margin-top: 3.4rem; padding-top: 1.1rem; border-top: 1px solid var(--line); display: flex; gap: 1.4rem; flex-wrap: wrap; font-size: .9rem; color: var(--muted); }
   footer.site a { color: var(--muted); }
   footer.site a:hover { color: var(--ink); }
+
+  /* Header toolbar: language choice stays above and right of the unchanged brand row. */
+  .site-toolbar { display: flex; flex-direction: column; align-items: flex-start; gap: 1rem; width: 100%; }
+  .site-toolbar .language-switch { align-self: flex-end; display: inline-flex; gap: .15rem; padding: .2rem;
+    border: 1px solid var(--line); border-radius: .65rem; background: var(--bg-2); }
+  .site-toolbar .language-switch a, .site-toolbar .language-switch span { display: flex; align-items: center; justify-content: center;
+    min-height: 44px; min-width: 4.5rem; padding: .3rem .65rem; border-radius: .45rem;
+    font-size: .82rem; line-height: 1.2; color: var(--muted); text-decoration: none; }
+  .site-toolbar .language-switch [aria-current="page"] { background: var(--mark-bg); color: var(--ink);
+    box-shadow: inset 0 0 0 1px var(--line); font-weight: 600; }
+  .site-toolbar .language-switch a:hover { background: var(--mark-bg); color: var(--ink); }
+  .site-toolbar .language-switch a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 </style>
 </head>
 <body class="page">
 <div class="wrap">
 <header class="site">
-  <a href="/" aria-label="Mutual Roots, Home">
-    <img class="mark" src="/assets/wolf.webp" alt="" width="512" height="512" decoding="async">
-    <span class="wordmark"><span class="w1">Mutual</span> <span class="w2">Roots</span><small>private · non-commercial</small></span>
-  </a>
+  <div class="site-toolbar">
+    <nav aria-label="Language" class="language-switch"><span lang="en" aria-current="page">English</span><a href="/de/datenschutz/" lang="de" hreflang="de">Deutsch</a></nav>
+    <a href="/" aria-label="Mutual Roots, Home">
+      <img class="mark" src="/assets/wolf.webp" alt="" width="512" height="512" decoding="async">
+      <span class="wordmark"><span class="w1">Mutual</span> <span class="w2">Roots</span><small>private · non-commercial</small></span>
+    </a>
+  </div>
 </header>
-<nav aria-label="Language" class="muted"><span lang="en" aria-current="page">English</span> · <a href="/de/datenschutz/" lang="de" hreflang="de">Deutsch</a></nav>
 <main>
 <h1>Privacy policy</h1>
 <p class="muted">Last updated: 26 October 2026</p>
@@ -118,15 +132,15 @@
 <h2>4. Links to other websites</h2>
 <p>Other websites are contacted only when you click their links. The respective provider's privacy policy then applies.</p>
 <h2>5. OAuth clients for private use</h2>
-<h2 id="fordiverse-rclone">fordiverse-rclone (Google OAuth client (desktop app))</h2>
-<p>“fordiverse-rclone” is the name of an OAuth client in a Google Cloud project owned by Simon Moritz Reichard. It is used exclusively by Simon Moritz Reichard with the open-source tool <a href="https://rclone.org">rclone</a> to access their own Google Drive account. It is not a public service: there are no other users, registration or download.</p>
+<h2 id="fordiverse-rclone">Fordiverse rclone (Google OAuth client (desktop app))</h2>
+<p>“Fordiverse rclone” is the name of an OAuth client in a Google Cloud project owned by Simon Moritz Reichard. It is used exclusively by Simon Moritz Reichard with the open-source tool <a href="https://rclone.org">rclone</a> to access their own Google Drive account. It is not a public service: there are no other users, registration or download.</p>
 <ul>
 <li><strong>Google data accessed:</strong> The scope <code>https://www.googleapis.com/auth/drive</code> allows access to files and their metadata (names, folders, sizes, timestamps and checksums) in Simon Moritz Reichard's own Google Drive.</li>
 <li><strong>Use:</strong> Only to upload, download, synchronize and back up the operator's own files (such as model files and backups) between their own devices and their own Google Drive.</li>
 <li><strong>Storage:</strong> The OAuth token is held in the local rclone configuration on the operator’s own computers, with a second copy in the operator’s own password vault. Files from Google Drive are stored only on Simon Moritz Reichard's own devices. This website does not store or process Google data.</li>
 <li><strong>Sharing:</strong> No sharing with third parties, sale, advertising or profiling.</li>
 <li><strong>No AI training:</strong> The data are not used to train AI or ML models.</li>
-<li><strong>Limited Use:</strong> fordiverse-rclone's use and transfer to other apps of information received from Google APIs adheres to the <a href="https://developers.google.com/terms/api-services-user-data-policy">Google API Services User Data Policy</a>, including the Limited Use requirements.</li>
+<li><strong>Limited Use:</strong> Fordiverse rclone's use and transfer to other apps of information received from Google APIs adheres to the <a href="https://developers.google.com/terms/api-services-user-data-policy">Google API Services User Data Policy</a>, including the Limited Use requirements.</li>
 <li><strong>Revocation:</strong> Access can be revoked at any time in the Google account at <a href="https://myaccount.google.com/permissions">https://myaccount.google.com/permissions</a>; local tokens are then deleted too.</li>
 <li><strong>Data subjects:</strong> Only Simon Moritz Reichard's own data are processed.</li>
 </ul>
@@ -135,8 +149,8 @@
 <p>This app belongs to the Google Cloud project “Google MI Auth Gate”. The existing Google consent dialog may still display “extern” as its app name. This information page does not confirm that the Google branding has already been changed or verified.</p>
 <ul>
 <li><strong>Google data accessed:</strong> Folders and message lists, message bodies and headers, and attachments where applicable, from the Gmail accounts that have been authorized. The Google grant does not cover accounts with other mail providers.</li>
-<li><strong>Permission:</strong> <code>https://mail.google.com/</code>. This broad Gmail scope technically also permits sending and deleting messages. The current use described here is listing, reading and local mirroring; granting Google access is not a separate instruction to send or delete messages.</li>
-<li><strong>Purpose and current use:</strong> Fordiverse Mail provides account-scoped API/MCP interfaces and Pimalaya for listing and reading authorized Gmail mailboxes. Mail copies stay locally in the self-hosted Fordiverse installation; configured mirrors are stored with Mox and read in the Cypht reader.</li>
+<li><strong>Permission:</strong> <code>https://mail.google.com/</code>. This broad Gmail scope technically also permits sending and deleting messages. The intended service includes user-requested sending; the native read path is proven and sending is still being connected. Granting Google access is not a separate instruction to send or delete messages.</li>
+<li><strong>Purpose and current use:</strong> Fordiverse Mail is intended to receive and read authorized Gmail messages and send messages at the user’s request. The first proven native path provides account-scoped API/MCP interfaces and Pimalaya for listing and reading; sending is still being connected. Mail copies stay locally in the self-hosted Fordiverse installation; configured mirrors are stored with Mox and read in the Cypht reader.</li>
 <li><strong>Credentials:</strong> OAuth tokens are held in the existing self-hosted OpenBao secret store and the designated protected service runtimes. They are not stored on this public website.</li>
 <li><strong>Mail copies and retention:</strong> Mail copies, headers and attachments are retained locally in the self-hosted installation for the mailbox management, mirroring and recovery requested by the account holder. They remain available for as long as needed for those purposes or as long as the account holder requests retention. Deletion and the end of retention can be requested from the operator. Temporary fetch files and operational backups must be considered separately. This public website stores no mail content.</li>
 <li><strong>Mail data protection:</strong> Mail is retrieved over encrypted IMAPS connections. The mail integration checks the enabled account and the agents authorized for it. Temporary original-message files and local import files are stored under designated service accounts with restrictive directory and file permissions. OAuth tokens are held in the designated protected secret store. These statements describe the access controls in use and do not promise full-disk encryption.</li>
