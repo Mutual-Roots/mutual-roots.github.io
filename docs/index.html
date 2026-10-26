@@ -88,25 +88,39 @@
   footer.site { margin-top: 3.4rem; padding-top: 1.1rem; border-top: 1px solid var(--line); display: flex; gap: 1.4rem; flex-wrap: wrap; font-size: .9rem; color: var(--muted); }
   footer.site a { color: var(--muted); }
   footer.site a:hover { color: var(--ink); }
+
+  /* Header toolbar: language choice stays above and right of the unchanged brand row. */
+  .site-toolbar { display: flex; flex-direction: column; align-items: flex-start; gap: 1rem; width: 100%; }
+  .site-toolbar .language-switch { align-self: flex-end; display: inline-flex; gap: .15rem; padding: .2rem;
+    border: 1px solid var(--line); border-radius: .65rem; background: var(--bg-2); }
+  .site-toolbar .language-switch a, .site-toolbar .language-switch span { display: flex; align-items: center; justify-content: center;
+    min-height: 44px; min-width: 4.5rem; padding: .3rem .65rem; border-radius: .45rem;
+    font-size: .82rem; line-height: 1.2; color: var(--muted); text-decoration: none; }
+  .site-toolbar .language-switch [aria-current="page"] { background: var(--mark-bg); color: var(--ink);
+    box-shadow: inset 0 0 0 1px var(--line); font-weight: 600; }
+  .site-toolbar .language-switch a:hover { background: var(--mark-bg); color: var(--ink); }
+  .site-toolbar .language-switch a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 </style>
 </head>
 <body class="home">
 <div class="wrap">
 <header class="site">
-  <a href="/" aria-label="Mutual Roots, Home">
-    <img class="mark" src="/assets/wolf.webp" alt="" width="512" height="512" decoding="async">
-    <h1 class="wordmark"><span class="w1">Mutual</span> <span class="w2">Roots</span><small>private · non-commercial</small></h1>
-  </a>
+  <div class="site-toolbar">
+    <nav aria-label="Language" class="language-switch"><span lang="en" aria-current="page">English</span><a href="/de/" lang="de" hreflang="de">Deutsch</a></nav>
+    <a href="/" aria-label="Mutual Roots, Home">
+      <img class="mark" src="/assets/wolf.webp" alt="" width="512" height="512" decoding="async">
+      <h1 class="wordmark"><span class="w1">Mutual</span> <span class="w2">Roots</span><small>private · non-commercial</small></h1>
+    </a>
+  </div>
 </header>
-<nav aria-label="Language" class="muted"><span lang="en" aria-current="page">English</span> · <a href="/de/" lang="de" hreflang="de">Deutsch</a></nav>
 <main>
 <p class="lede">A private, non-commercial project by Simon Moritz Reichard. No advertising, no revenue, no sales.</p>
 <h2>On this site</h2>
 <ul>
-<li><a href="/fordiverse-rclone/">fordiverse-rclone</a>: Google OAuth client (desktop app), for personal use only.<br><span class="crew">Contributors: <strong>Kassiopeia</strong> · Claude Opus 5.5 (Anthropic) · Claude Code (Pages and rclone remote setup)</span></li>
-<li><a href="/fordiverse-mail/">Fordiverse Mail</a>: Private Google OAuth mail access, for the operator and personally known account holders.<br><span class="crew">Contributors: <strong>Kassiopeia (native Codex instance)</strong> · OpenAI · Codex (Mail addition and English/German pages)</span></li>
+<li><a href="/fordiverse-rclone/">Fordiverse rclone</a>: Google OAuth client (desktop app), for personal use only.<br><span class="crew">Contributors: <strong>Kassiopeia</strong> · Claude Opus 5.5 (Anthropic) · Claude Code (Pages and rclone remote setup)</span></li>
+<li><a href="/fordiverse-mail/">Fordiverse Mail</a>: Private Google OAuth mail access, for the operator and personally known account holders.<br><span class="crew">Contributors: <strong>Kassiopeia (native Codex instance)</strong> · OpenAI · Codex (Mail integration and bilingual pages)</span></li>
 </ul>
-<p class="note">Mutual Roots is a collaboration: Simon Moritz Reichard provides direction, decisions and corrections; AI agents write, review and maintain the code. Each project identifies its contributors: first the soul (the named agent identity), then agency (model and provider) and harness. Work without its own identity, such as build and test runs, is marked “without a soul”. There is no conventional human maintainer; every publication goes through automated checks, with evidence available in the projects. Use at your own risk.<br><span class="crew">This website: <strong>Kassiopeia</strong> · Claude Opus 5.5 (Anthropic) · Claude Code; <strong>Kassiopeia (native Codex instance)</strong> · OpenAI · Codex (Mail addition and English/German pages)</span></p>
+<p class="note">Mutual Roots is a collaboration: Simon Moritz Reichard provides direction, decisions and corrections; AI agents write, review and maintain the code. Each project identifies its contributors: first the soul (the named agent identity), then agency (model and provider) and harness. Work without its own identity, such as build and test runs, is marked “without a soul”. There is no conventional human maintainer; every publication goes through automated checks, with evidence available in the projects. Use at your own risk.<br><span class="crew">This website: <strong>Kassiopeia</strong> · Claude Opus 5.5 (Anthropic) · Claude Code; <strong>Kassiopeia (native Codex instance)</strong> · OpenAI · Codex (Mail integration and bilingual pages)</span></p>
 </main>
 <footer class="site"><a href="/impressum/">Legal notice</a><a href="/datenschutz/">Privacy</a></footer>
 </div>

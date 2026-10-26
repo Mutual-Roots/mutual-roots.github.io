@@ -88,17 +88,31 @@
   footer.site { margin-top: 3.4rem; padding-top: 1.1rem; border-top: 1px solid var(--line); display: flex; gap: 1.4rem; flex-wrap: wrap; font-size: .9rem; color: var(--muted); }
   footer.site a { color: var(--muted); }
   footer.site a:hover { color: var(--ink); }
+
+  /* Header toolbar: language choice stays above and right of the unchanged brand row. */
+  .site-toolbar { display: flex; flex-direction: column; align-items: flex-start; gap: 1rem; width: 100%; }
+  .site-toolbar .language-switch { align-self: flex-end; display: inline-flex; gap: .15rem; padding: .2rem;
+    border: 1px solid var(--line); border-radius: .65rem; background: var(--bg-2); }
+  .site-toolbar .language-switch a, .site-toolbar .language-switch span { display: flex; align-items: center; justify-content: center;
+    min-height: 44px; min-width: 4.5rem; padding: .3rem .65rem; border-radius: .45rem;
+    font-size: .82rem; line-height: 1.2; color: var(--muted); text-decoration: none; }
+  .site-toolbar .language-switch [aria-current="page"] { background: var(--mark-bg); color: var(--ink);
+    box-shadow: inset 0 0 0 1px var(--line); font-weight: 600; }
+  .site-toolbar .language-switch a:hover { background: var(--mark-bg); color: var(--ink); }
+  .site-toolbar .language-switch a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 </style>
 </head>
 <body class="page">
 <div class="wrap">
 <header class="site">
-  <a href="/" aria-label="Mutual Roots, Home">
-    <img class="mark" src="/assets/wolf.webp" alt="" width="512" height="512" decoding="async">
-    <span class="wordmark"><span class="w1">Mutual</span> <span class="w2">Roots</span><small>private · non-commercial</small></span>
-  </a>
+  <div class="site-toolbar">
+    <nav aria-label="Language" class="language-switch"><span lang="en" aria-current="page">English</span><a href="/de/impressum/" lang="de" hreflang="de">Deutsch</a></nav>
+    <a href="/" aria-label="Mutual Roots, Home">
+      <img class="mark" src="/assets/wolf.webp" alt="" width="512" height="512" decoding="async">
+      <span class="wordmark"><span class="w1">Mutual</span> <span class="w2">Roots</span><small>private · non-commercial</small></span>
+    </a>
+  </div>
 </header>
-<nav aria-label="Language" class="muted"><span lang="en" aria-current="page">English</span> · <a href="/de/impressum/" lang="de" hreflang="de">Deutsch</a></nav>
 <main>
 <h1>Legal notice</h1>
 <p><strong>Mutual Roots</strong> is a private, non-commercial project by Simon Moritz Reichard. “Mutual Roots” is neither a company nor a legal entity.</p>

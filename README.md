@@ -1,7 +1,7 @@
 # mutual-roots.github.io
 
 The small public website for **Mutual Roots**: home, legal notice, privacy policy
-and app information for `fordiverse-rclone` and `Fordiverse Mail`. Project pages such
+and app information for `Fordiverse rclone` and `Fordiverse Mail`. Project pages such
 as `/nvidia-legacy-580-installer/` can be supplied by their own repositories.
 
 ## How it works
@@ -23,7 +23,9 @@ as `/nvidia-legacy-580-installer/` can be supplied by their own repositories.
   the builder copies it to the site root.
 
 `/fordiverse-mail/` describes the existing “Google MI Auth Gate” Gmail connection,
-Pimalaya and local Mox/Cypht mirrors. Drive and Mail content remain separate.
+Pimalaya and local Mox/Cypht mirrors. The intended Mail service covers receiving,
+reading and user-requested sending: the native read path is proven; sending is
+still being connected. Drive and Mail content remain separate.
 Publishing this website does not change Google's branding, publication or
 verification status.
 

@@ -406,7 +406,7 @@ def render(base, cfg, title, body, bodyclass="page", page_rel=""):
                                      home_url=page_url("", cfg), home_label="Home" if lang == "en" else "Startseite",
                                      tagline="private · non-commercial" if lang == "en" else "privat · nicht-kommerziell",
                                      language_label="Language" if lang == "en" else "Sprache",
-                                     language_switch=" · ".join(languages), language_alternates=alternates,
+                                     language_switch="".join(languages), language_alternates=alternates,
                                      legal_url=page_url("impressum/", cfg), legal_label="Legal notice" if lang == "en" else "Impressum",
                                      privacy_url=page_url("datenschutz/", cfg), privacy_label="Privacy" if lang == "en" else "Datenschutz")
 

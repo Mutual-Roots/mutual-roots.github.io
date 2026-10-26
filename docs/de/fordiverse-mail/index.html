@@ -88,29 +88,43 @@
   footer.site { margin-top: 3.4rem; padding-top: 1.1rem; border-top: 1px solid var(--line); display: flex; gap: 1.4rem; flex-wrap: wrap; font-size: .9rem; color: var(--muted); }
   footer.site a { color: var(--muted); }
   footer.site a:hover { color: var(--ink); }
+
+  /* Header toolbar: language choice stays above and right of the unchanged brand row. */
+  .site-toolbar { display: flex; flex-direction: column; align-items: flex-start; gap: 1rem; width: 100%; }
+  .site-toolbar .language-switch { align-self: flex-end; display: inline-flex; gap: .15rem; padding: .2rem;
+    border: 1px solid var(--line); border-radius: .65rem; background: var(--bg-2); }
+  .site-toolbar .language-switch a, .site-toolbar .language-switch span { display: flex; align-items: center; justify-content: center;
+    min-height: 44px; min-width: 4.5rem; padding: .3rem .65rem; border-radius: .45rem;
+    font-size: .82rem; line-height: 1.2; color: var(--muted); text-decoration: none; }
+  .site-toolbar .language-switch [aria-current="page"] { background: var(--mark-bg); color: var(--ink);
+    box-shadow: inset 0 0 0 1px var(--line); font-weight: 600; }
+  .site-toolbar .language-switch a:hover { background: var(--mark-bg); color: var(--ink); }
+  .site-toolbar .language-switch a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 </style>
 </head>
 <body class="page">
 <div class="wrap">
 <header class="site">
-  <a href="/de/" aria-label="Mutual Roots, Startseite">
-    <img class="mark" src="/assets/wolf.webp" alt="" width="512" height="512" decoding="async">
-    <span class="wordmark"><span class="w1">Mutual</span> <span class="w2">Roots</span><small>privat · nicht-kommerziell</small></span>
-  </a>
+  <div class="site-toolbar">
+    <nav aria-label="Sprache" class="language-switch"><a href="/fordiverse-mail/" lang="en" hreflang="en">English</a><span lang="de" aria-current="page">Deutsch</span></nav>
+    <a href="/de/" aria-label="Mutual Roots, Startseite">
+      <img class="mark" src="/assets/wolf.webp" alt="" width="512" height="512" decoding="async">
+      <span class="wordmark"><span class="w1">Mutual</span> <span class="w2">Roots</span><small>privat · nicht-kommerziell</small></span>
+    </a>
+  </div>
 </header>
-<nav aria-label="Sprache" class="muted"><a href="/fordiverse-mail/" lang="en" hreflang="en">English</a> · <span lang="de" aria-current="page">Deutsch</span></nav>
 <main>
 <h1>Fordiverse Mail</h1>
-<p class="lede">Fordiverse Mail stellt freigegebene Gmail-Postfächer über kontogebundene API-/MCP-Schnittstellen und Pimalaya zum Auflisten und Lesen bereit. Mailkopien bleiben lokal in der selbst betriebenen Fordiverse-Installation; konfigurierte Spiegel werden mit Mox gespeichert und im Cypht-Reader gelesen.</p>
+<p class="lede">Fordiverse Mail soll freigegebene Gmail-Nachrichten empfangen, lesen und auf Nutzerauftrag versenden. Der erste nachgewiesene native Pfad stellt kontogebundene API-/MCP-Schnittstellen und Pimalaya zum Auflisten und Lesen bereit; der Versandanschluss wird noch hergestellt. Mailkopien bleiben lokal in der selbst betriebenen Fordiverse-Installation; konfigurierte Spiegel werden mit Mox gespeichert und im Cypht-Reader gelesen.</p>
 <p><strong>Für wen?</strong> Das private Angebot ist für den Betreiber und persönlich bekannte Kontoinhaberinnen und Kontoinhaber bestimmt, die ihr jeweiliges Gmail-Konto selbst freigeben. Es gibt keine öffentliche Selbstregistrierung.</p>
 <p><strong>Google-Anmeldung:</strong> Google-Cloud-Projekt „Google MI Auth Gate“; der bisherige Zustimmungsdialog kann noch „extern“ anzeigen. Eine Umbenennung oder Google-Verifizierung wird hiermit nicht behauptet.</p>
 <p><strong>Welche Daten?</strong> Ordner und Nachrichtenlisten, Nachrichteninhalte und Kopfzeilen sowie gegebenenfalls Anhänge der jeweils freigegebenen Gmail-Konten. Der Google-Zugang umfasst keine Konten anderer Mailanbieter.</p>
-<p><strong>Google-Berechtigung:</strong> <code>https://mail.google.com/</code>. Dieser umfassende Gmail-Berechtigungsumfang erlaubt technisch auch das Senden und Löschen von Nachrichten. Die hier beschriebene aktuelle Nutzung ist das Auflisten, Lesen und lokale Spiegeln; die Google-Freigabe ist keine eigenständige Beauftragung zum Senden oder Löschen.</p>
+<p><strong>Google-Berechtigung:</strong> <code>https://mail.google.com/</code>. Dieser umfassende Gmail-Berechtigungsumfang erlaubt technisch auch das Senden und Löschen von Nachrichten. Das Ziel umfasst den Versand auf Nutzerauftrag; aktuell ist der native Lesepfad nachgewiesen und der Versand wird noch angeschlossen. Die Google-Freigabe ist keine eigenständige Beauftragung zum Senden oder Löschen.</p>
 <p><strong>Lokale Speicherung und angebundene Clients:</strong> Mailkopien, Kopfzeilen und Anhänge werden lokal in der selbst betriebenen Installation für die vom Kontoinhaber beauftragte Postfachverwaltung, Spiegelung und Wiederherstellung aufbewahrt. Sie bleiben verfügbar, solange sie für diese Zwecke benötigt werden oder der Kontoinhaber ihre Aufbewahrung wünscht. Löschung und Beendigung der Aufbewahrung können beim Betreiber beauftragt werden. Vorübergehende Abrufdateien und betriebliche Sicherungen sind dabei gesondert zu berücksichtigen. Diese öffentliche Website speichert keine Mailinhalte. Agenten sind eigenständige, vom Kontoinhaber ausgewählte und freigegebene API-/MCP-Clients. Die Mailfunktion setzt kein eingebautes KI-Modell voraus. Nutzer können für ihre Clients eigene Anbieterzugänge verwenden (BYOK: Bring Your Own Key). Beauftragt ein Nutzer einen Client, bestimmte Maildaten an einen weiteren Dienst zu übermitteln, beauftragt er damit auch die Verarbeitung dieser Daten für den angegebenen Zweck nach den geltenden Datenschutz- und Aufbewahrungsbedingungen dieses Dienstes. Empfänger und Verwendungszweck müssen vor der Übermittlung bekannt und freigegeben sein. Eine Google-Freigabe oder ein eigener API-Schlüssel ersetzt diese Beauftragung nicht.</p>
 <p>Fordiverse verwendet Google-Workspace-Daten nicht zur Entwicklung, Verbesserung oder zum Training nicht personalisierter KI- oder ML-Modelle. Ebenso werden diese Daten nicht für Werbung oder Datenverkauf verwendet. Eine Weitergabe an angebundene Clients und weitere Dienste ist ausschließlich für die beauftragten, nutzersichtbaren Mailfunktionen zulässig; die Empfänger müssen dieselben Limited-Use-Grenzen einhalten. Die eigenen Datenschutz- und Schutzpflichten von Fordiverse bleiben durch die Wahl eines externen Clients oder BYOK-Zugangs bestehen. Details zu Zugangsdaten, Weitergabe, Widerruf und Löschung: <a href="/de/datenschutz/#fordiverse-mail">Datenschutzerklärung zu Fordiverse Mail</a>.</p>
 <p><strong>Zugriff widerrufen:</strong> <a href="https://myaccount.google.com/permissions">https://myaccount.google.com/permissions</a></p>
 <p><strong>Kontakt:</strong> Simon Moritz Reichard, <a href="mailto:mutual.ford.perfect@gmail.com">mutual.ford.perfect@gmail.com</a></p>
-<p class="note">Mutual Roots entsteht in Zusammenarbeit: Simon Moritz Reichard gibt Richtung, Entscheidungen und Korrekturen vor; KI-Agenten schreiben, prüfen und pflegen den Code. Bei jedem Projekt steht, wer daran gearbeitet hat: zuerst die Seele (die benannte Agenten-Identität), dann Agency (Modell und Anbieter) und Harness; Arbeit ohne eigene Identität, etwa reine Bau- und Prüfläufe, ist als „ohne Seele“ gekennzeichnet. Einen klassischen menschlichen Maintainer gibt es nicht; jede Veröffentlichung durchläuft automatische Prüfroutinen, die Belege liegen offen bei den Projekten. Nutzung auf eigene Gefahr.<br><span class="crew">Beteiligt: <strong>Kassiopeia (native Codex-Instanz)</strong> · OpenAI · Codex (Mail-Ergänzung)</span></p>
+<p class="note">Mutual Roots entsteht in Zusammenarbeit: Simon Moritz Reichard gibt Richtung, Entscheidungen und Korrekturen vor; KI-Agenten schreiben, prüfen und pflegen den Code. Bei jedem Projekt steht, wer daran gearbeitet hat: zuerst die Seele (die benannte Agenten-Identität), dann Agency (Modell und Anbieter) und Harness; Arbeit ohne eigene Identität, etwa reine Bau- und Prüfläufe, ist als „ohne Seele“ gekennzeichnet. Einen klassischen menschlichen Maintainer gibt es nicht; jede Veröffentlichung durchläuft automatische Prüfroutinen, die Belege liegen offen bei den Projekten. Nutzung auf eigene Gefahr.<br><span class="crew">Beteiligt: <strong>Kassiopeia (native Codex-Instanz)</strong> · OpenAI · Codex (Mailintegration und zweisprachige Seiten)</span></p>
 
 </main>
 <footer class="site"><a href="/de/impressum/">Impressum</a><a href="/de/datenschutz/">Datenschutz</a></footer>
